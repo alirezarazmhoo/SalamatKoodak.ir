@@ -226,10 +226,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/08/2018 13:18:16</publishTime>
     </File>
     <File Include="bin/SalamatKoodak.dll">
-      <publishTime>09/06/2020 11:22:35</publishTime>
+      <publishTime>09/06/2020 16:32:31</publishTime>
     </File>
     <File Include="bin/SalamatKoodak.pdb">
-      <publishTime>09/06/2020 11:22:35</publishTime>
+      <publishTime>09/06/2020 16:32:31</publishTime>
     </File>
     <File Include="bin/Stimulsoft.Base.dll">
       <publishTime>08/12/2020 09:02:56</publishTime>
@@ -24358,7 +24358,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/28/2020 22:40:31</publishTime>
     </File>
     <File Include="Scripts/Common.js">
-      <publishTime>09/05/2020 20:15:23</publishTime>
+      <publishTime>09/06/2020 15:44:14</publishTime>
     </File>
     <File Include="Scripts/jquery-3.4.1.js">
       <publishTime>08/28/2020 22:40:32</publishTime>
@@ -24457,7 +24457,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/28/2020 22:40:38</publishTime>
     </File>
     <File Include="Views/Personels/Index.cshtml">
-      <publishTime>09/06/2020 11:13:55</publishTime>
+      <publishTime>09/06/2020 15:46:30</publishTime>
     </File>
     <File Include="Views/Shared/Error.cshtml">
       <publishTime>09/06/2020 09:11:01</publishTime>
@@ -24466,13 +24466,16 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/28/2020 22:40:38</publishTime>
     </File>
     <File Include="Views/Shared/_Layout.cshtml">
-      <publishTime>09/06/2020 10:38:16</publishTime>
+      <publishTime>09/06/2020 14:42:15</publishTime>
     </File>
     <File Include="Views/Shared/_LoginPartial.cshtml">
       <publishTime>08/29/2020 13:24:00</publishTime>
     </File>
+    <File Include="Views/Users/ChangePassword.cshtml">
+      <publishTime>09/06/2020 15:11:47</publishTime>
+    </File>
     <File Include="Views/Users/Index.cshtml">
-      <publishTime>09/06/2020 11:13:55</publishTime>
+      <publishTime>09/06/2020 15:59:58</publishTime>
     </File>
     <File Include="Views/Web.config">
       <publishTime>08/28/2020 22:40:27</publishTime>
@@ -24481,7 +24484,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/28/2020 22:40:27</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>09/06/2020 11:22:39</publishTime>
+      <publishTime>09/06/2020 16:32:39</publishTime>
     </File>
   </ItemGroup>
 </Project>

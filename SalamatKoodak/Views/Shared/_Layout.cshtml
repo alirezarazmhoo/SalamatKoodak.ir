@@ -57,9 +57,7 @@
 					<li class="active"><a href="../Personels/Index"><i class="fa fa-users"></i> <span>لیست افراد</span></a></li>
 					@if (User.IsInRole("Admin"))
 					{
-						<li class="active"><a data-toggle="modal" data-target="#modalchangePass" style="cursor:pointer"><i class="fa fa-key"></i> <span>تغیر رمزعبور</span></a></li>
-
-
+						<li class="active"><a href="../Users/ChangePassword"><i class="fa fa-key"></i> <span>تغیر رمزعبور</span></a></li>
 					}
 					<li class="active"><a href="../Account/LogOff"><i class="fa fa-sign-out"></i> <span>خروج</span></a></li>
 					@*<li class="treeview">

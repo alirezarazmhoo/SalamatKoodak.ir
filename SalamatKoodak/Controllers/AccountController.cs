@@ -116,8 +116,6 @@ namespace SalamatKoodak.Controllers
                         var store = new UserStore<ApplicationUser>(new ApplicationDbContext());
                         var manager = new UserManager<ApplicationUser>(store);
                         var currentUser = manager.FindById(model.UserId);
-                     //var resul3t =    await UserManager.ChangePasswordAsync(model.UserId, currentUser.DecriptPass, model.PasswordHash);
-                     //   currentUser.DecriptPass = model.PasswordHash;
                         currentUser.Name = model.Name;
                         currentUser.LastName = model.LastName;
                         currentUser.NationalCode = model.NationalCode;
@@ -126,6 +124,19 @@ namespace SalamatKoodak.Controllers
                         {
                             return Json(new { success = false, responseText = "نام کاربری تکراری است" }, JsonRequestBehavior.AllowGet);
 
+                        }
+                        if(currentUser.DecriptPass != model.PasswordHash)
+                        {
+                            manager.RemovePassword(currentUser.Id);
+                           var _result=  manager.AddPassword(currentUser.Id, model.PasswordHash);
+                            if (_result.Succeeded)
+                            {
+                                currentUser.DecriptPass = model.PasswordHash;
+                            }
+                            else
+                            {
+                                return Json(new { success = false, responseText = "امکان تغییر رمز برای این کاربر وجود ندارد" }, JsonRequestBehavior.AllowGet);
+                            }
                         }
                         if (currentUser.CityId != model.CityId)
                         {

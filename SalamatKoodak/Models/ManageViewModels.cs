@@ -41,12 +41,13 @@ namespace SalamatKoodak.Models
 
     public class ChangePasswordViewModel
     {
-        [Required]
+        [Required(ErrorMessage ="رمزقبلی را وارد کنید")]
         [DataType(DataType.Password)]
         [Display(Name = "Current password")]
         public string OldPassword { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "رمزجدید را وارد کنید")]
+
         [StringLength(100, ErrorMessage = "حداقل طول رمز عبور 6 کاراکتر است", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "رمز جدید")]

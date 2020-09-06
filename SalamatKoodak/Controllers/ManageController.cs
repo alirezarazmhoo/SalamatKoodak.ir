@@ -224,12 +224,11 @@ namespace SalamatKoodak.Controllers
         // POST: /Manage/ChangePassword
         [HttpPost]
 
-        public async Task<JsonResult> ChangePassword(ChangePasswordViewModel model)
+        public async Task<ActionResult> ChangePassword(ChangePasswordViewModel model)
         {
             if (!ModelState.IsValid)
             {
-                return Json(new { success = false, responseText = "مقادیر ورودی ناقص است " }, JsonRequestBehavior.AllowGet);
-
+                return View(model);
             }
             var result = await UserManager.ChangePasswordAsync(User.Identity.GetUserId(), model.OldPassword, model.NewPassword);
             if (result.Succeeded)
@@ -239,12 +238,13 @@ namespace SalamatKoodak.Controllers
                 {
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
                 }
-                return Json(new { success = true }, JsonRequestBehavior.AllowGet);
-
+            }
+            else
+            {
+                ModelState.AddModelError(string.Empty, "رمزعبورصحیح نیست");
             }
             AddErrors(result);
-            return Json(new { success = false, responseText = result.Errors}, JsonRequestBehavior.AllowGet);
-
+            return View(model);
         }
 
         //

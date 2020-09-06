@@ -7,6 +7,8 @@ using System.Web.Mvc;
 using PagedList;
 using System.Data.Entity;
 using System.Threading.Tasks;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 
 namespace SalamatKoodak.Controllers
 {
@@ -14,7 +16,8 @@ namespace SalamatKoodak.Controllers
     public class UsersController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
-
+        private ApplicationSignInManager _signInManager;
+        private ApplicationUserManager _userManager;
         public async Task<ActionResult> Index(int? page, string searchString,int? CityId)
         {
             //492cc8fa - 468b - 457a - 86a4 - adc4de1344d1
@@ -43,6 +46,29 @@ namespace SalamatKoodak.Controllers
             int pageNumber = (page ?? 1);
             ViewBag.Count = users.Count;
             return View(users.OrderBy(s=>s.Id).ToPagedList(pageNumber, pageSize));
+        }
+        public ApplicationSignInManager SignInManager
+        {
+            get
+            {
+                return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
+            }
+            private set
+            {
+                _signInManager = value;
+            }
+        }
+
+        public ApplicationUserManager UserManager
+        {
+            get
+            {
+                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+            private set
+            {
+                _userManager = value;
+            }
         }
 
         [HttpGet]
@@ -96,6 +122,42 @@ namespace SalamatKoodak.Controllers
             edit.Add(new EditModel() { Key = "UserId", Value = user.Id });
             return Json(new { success = true , listItem = edit.ToList(), cityid = user.CityId }, JsonRequestBehavior.AllowGet);
         }
+
+        public ActionResult ChangePassword()
+        {
+            return View();
+        }
+        [HttpPost]
+        public async Task<ActionResult> ChangePassword(ChangePasswordViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            var result = await UserManager.ChangePasswordAsync(User.Identity.GetUserId(), model.OldPassword, model.NewPassword);
+            if (result.Succeeded)
+            {
+                var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+                if (user != null)
+                {
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                }
+            }
+            else
+            {
+                ModelState.AddModelError(string.Empty, "رمزعبورصحیح نیست");
+            }
+            AddErrors(result);
+            return View(model);
+        }
+        private void AddErrors(IdentityResult result)
+        {
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError("", error);
+            }
+        }
+
 
     }
 }

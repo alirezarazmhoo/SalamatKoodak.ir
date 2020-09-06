@@ -19,7 +19,7 @@
 	}
 <div class="row">
     <div class="col-sm-12">
-        <div class="text-center" style="border-style: solid;border-color:aquamarine">
+        <div class="text-center" style="border-style: solid;border-color:dimgray">
             <h2 style="font-size:medium">جستجو</h2>
         </div>
        @using (Html.BeginForm("Index",
@@ -45,13 +45,7 @@
                 </div>
             </div>
             <div style="margin-top:20px">
-               <button style="margin-right:20px;" type="submit" class="btn btn-success">جستجو یا بارگزاری مجدد  </button>
-                <a style="margin-right:20px;font-family:'B Yekan'" href="../Personels/Print?Type=0" class="btn btn-primary">
-                    <i class="fa fa-file-pdf-o" aria-hidden="true"></i>خروجی PDF
-                </a>
-                <a style="margin-right:20px;font-family:'B Yekan'"  href="../Personels/Print?Type=1"  class="btn btn-primary">
-                    <i class="fa fa-file-excel-o" aria-hidden="true"></i>خروجی Excel
-                </a>
+                <button style="margin-right:20px;" type="submit" class="btn btn-success">جستجو یا بارگزاری مجدد  </button>
             </div>
 
 
@@ -60,11 +54,52 @@
     </div>
 </div>
 <div class="row">
+    <div class="col-sm-12">
+        <div class="text-center" style="border-style: solid;border-color:darkgray">
+            <h2 style="font-size:medium">خروجی پی دی اف و اکسل</h2>
+        </div>
+        @using (Html.BeginForm("Print",
+         "Personels",
+         FormMethod.Post ,  new { enctype = "multipart/form-data" , @id="frmsearch" }))
+        {
+            <div class="box zmdi-border-color" style="height:auto">
+                <div style="margin-top:20px">
+                    <label for="exampleInputEmail1">فیلتر خروجی پی دی اف یا اکسل بر اساس نوع جذب  :</label>
+                    <select style="width:160px" name="RelationTypeId" id="SearchRelationTypeId">
+                        <option>انتخاب کنید</option>
+           
+                    </select>
+                    <label for="exampleInputEmail1">فیلتر خروجی پی دی اف یا اکسل بر اساس سطح تعامل :</label>
+                    <select style="width:160px" name="PersonelStatusId" id="SearchPersonelStatusId">
+                        <option>انتخاب کنید</option>
+                    </select>
+
+                </div>
+                <div>
+                    <button onclick="GetPDfPrint();" type="button" style="margin-right:20px;font-family:'B Yekan'"  class="btn btn-primary">
+                        <i class="fa fa-file-pdf-o" aria-hidden="true"></i>خروجی PDF
+                    </button>
+                    <button type="submit" style="margin-right:20px;font-family:'B Yekan'"  class="btn btn-primary">
+                        <i class="fa fa-file-excel-o" aria-hidden="true"></i>خروجی Excel
+                    </button>
+                </div>
+                <p class="text text-danger" style="margin-right:10px">
+
+                @TempData["Error"]
+                </p>
+            </div>
+		}
+        </div>
+</div>
+<div class="row">
     <div class="col-xs-12">
         <div class="box">
             <div class="box-body table-responsive no-padding">
                 <table class="table table-hover text-center">
                     <tr>
+                        <th>
+                            ردیف
+                        </th>
                         <th>
                             کد
                         </th>
@@ -95,57 +130,60 @@
                             <th>
                                 عملیات
                             </th>
-						}
-                        </tr>
+                        }
+                    </tr>
+                    @{ int rowNo = 0; }
                     @foreach (var item in Model)
                     {
 
-                <tr>
-
-                    <td>
-                        @item.Code
-                    </td>
-                    <td>
-                        @item.Name
-                    </td>
-                    <td>
-                        @item.LastName
-                    </td>
-                    <td>
-                        @item.Mobile
-                    </td>
-                    <td>
-                        @item.IdTelegram
-                    </td>
-                    @{
-                        if (String.IsNullOrEmpty(item.NationalCode))
-                        {
-                            <td style="color:red">
-                                تعریف نشده
-                            </td>
-                        }
-                        else
-                        {
+                        <tr>
                             <td>
-                                @item.NationalCode
+                                @(rowNo += 1)
                             </td>
+                            <td>
+                                @item.Code
+                            </td>
+                            <td>
+                                @item.Name
+                            </td>
+                            <td>
+                                @item.LastName
+                            </td>
+                            <td>
+                                @item.Mobile
+                            </td>
+                            <td>
+                                @item.IdTelegram
+                            </td>
+                            @{
+                                if (String.IsNullOrEmpty(item.NationalCode))
+                                {
+                                    <td style="color:red">
+                                        تعریف نشده
+                                    </td>
+                                }
+                                else
+                                {
+                                    <td>
+                                        @item.NationalCode
+                                    </td>
 
-                        }
-                    }
-                    <td>
-                        @item.RelationType.Name
-                    </td>
-                    <td>
-                        @item.PersonelStatus.Name
-                    </td>
-                    @if (!User.IsInRole("Admin"))
-                    {
-                        <td>
-                            <button class="btn btn-warning" id="@item.Id"> ویرایش</button>|
-                            <button class="btn btn-danger" data-toggle="modal" data-target="#QuestionModal" onclick="AssignButtonClicked(this)" data-assigned-id="@item.Id"> حذف</button>
-                        </td>
-                    }
-                </tr>
+                                }
+                            }
+                            <td>
+                                @item.RelationType.Name
+                            </td>
+                            <td>
+                                @item.PersonelStatus.Name
+                            </td>
+                            @if (!User.IsInRole("Admin"))
+                            {
+                                <td>
+                                    <button class="btn btn-warning" id="@item.Id"> ویرایش</button>|
+                                    <button class="btn btn-danger" data-toggle="modal" data-target="#QuestionModal" onclick="AssignButtonClicked(this)" data-assigned-id="@item.Id"> حذف</button>
+                                </td>
+                            }
+                        </tr>
 
                     }
 
@@ -205,13 +243,13 @@
                         <input id="NationalCode" maxlength="10" name="NationalCode" display="کدملی" class="form-control" style="width:70%">
                     </div>
                     <div class="form-group" style="margin-right:5px">
-                        <label for="exampleInputEmail1"> نوع ارتباط :</label>
+                        <label for="exampleInputEmail1"> نوع جذب :</label>
                         <select class="form-control" style="width:70%" id="RelationTypeId">
                         </select>
 
                     </div>
                     <div class="form-group" style="margin-right:5px">
-                        <label for="exampleInputEmail1"> وضعیت  :</label>
+                        <label for="exampleInputEmail1"> سطح تعامل  :</label>
                         <select class="form-control" style="width:70%" id="PersonelStatusId" name="PersonelStatusId">
                         </select>
 
@@ -242,11 +280,18 @@
         FillComboBox('../Personels/LoadRelationType', 'RelationTypeId');
 		FillComboBox('../Personels/LoadStatus', 'PersonelStatusId');
         FillComboBox('../Users/LoadCityes', 'SearchCityId');
-
+        FillComboBox('../Personels/LoadStatus', 'SearchPersonelStatusId');
+		FillComboBox('../Personels/LoadRelationType', 'SearchRelationTypeId');
 		SetInputFilter(["Code", "Mobile", "NationalCode"]);
         		$(".btn-warning").click(function () {
 			PersonelEditAjax("../Personels/GetPersonelInfo",this.id);
-		});
+				});
+
+        	$(".btn-success").click(function () {
+                clear('register');
+				});
+        
+        SearchPersonelStatusId
     }
     function Save() {
         if (checkvalidity('register') === 0) {
@@ -266,4 +311,13 @@
    var Parameters = [{ id: "PersonelId", htmlname: "PersonelId", special: "" }];
     PostAjax('../Personels/Remove', Parameters,"../Personels/Index");
 	}
+
+	function GetPDfPrint() {
+ 
+
+		$('<input value="0" name="type">').attr('type', 'hidden').appendTo('#frmsearch');
+		$('#frmsearch').submit();
+		ResetListBox(["SearchRelationTypeId", "SearchPersonelStatusId"]);
+	}
+
 </script>

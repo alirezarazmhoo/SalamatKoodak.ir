@@ -17,7 +17,6 @@ using Microsoft.AspNet.Identity.EntityFramework;
 namespace SalamatKoodak.Controllers
 {
     [Authorize]
-
     public class PersonelsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -104,9 +103,12 @@ namespace SalamatKoodak.Controllers
                     {
                         return Json(new { success = false, responseText = "ایتم مورد نظر یافت نشد" }, JsonRequestBehavior.AllowGet);
                     }
-                    if(await db.Personels.Where(s=>s.Code != model.Code).CountAsync() == 1)
+                    if(personelitem.Code !=model.Code)
                     {
+                        if(await db.Personels.Where(s=>s.Code == model.Code).CountAsync() >0)
+                        {
                         return Json(new { success = false, responseText = $"کد {model.Code} تکراری است" }, JsonRequestBehavior.AllowGet);
+                        }
                     }
                     personelitem.IdTelegram = model.IdTelegram;
                     personelitem.LastName = model.LastName;
@@ -119,7 +121,7 @@ namespace SalamatKoodak.Controllers
                 }
                 else
                 {
-                    if (await db.Personels.Where(s => s.Code == model.Code).CountAsync() == 1)
+                    if (await db.Personels.Where(s => s.Code == model.Code).CountAsync() >0)
                     {
                         return Json(new { success = false, responseText = $"کد {model.Code} تکراری است" }, JsonRequestBehavior.AllowGet);
                     }
@@ -153,7 +155,8 @@ namespace SalamatKoodak.Controllers
             }
             return Json(new { success = true }, JsonRequestBehavior.AllowGet);
         }
-        public  async Task<ActionResult> Print(int type)
+        [HttpPost]
+        public  async Task<ActionResult> Print(int? type , int? RelationTypeId , int? PersonelStatusId)
         {
          var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
          var user =await UserManager.FindByIdAsync(User.Identity.GetUserId());
@@ -163,13 +166,26 @@ namespace SalamatKoodak.Controllers
          report.Load(Server.MapPath("~/Content/Report/stiPersonelsReport.mrt"));
          StiComponentsCollection components = report.GetComponents();
          ((StiText)components["txtCurrentDate"]).Text.Value = string.Format("{0} - {1}", DateTime.Now.ToString("HH:mm:ss"), DateTime.Now.ToPersianDateTime());
-         ((StiText)components["txtusername"]).Text.Value = $"{user.Name + " "+user.LastName}";
+         ((StiText)components["txtusername"]).Text.Value = $"{user.Name + " "+user.LastName}";               
             if (User.IsInRole("Admin"))
             {
-              var dataset =await db.Personels.Include(s => s.PersonelStatus).Include(s => s.RelationType).Select(s=>new { s.Code,s.CityId   , s.Name , s.LastName , s.Mobile, s.IdTelegram , s.NationalCode , RelationType= s.RelationType.Name , PersonelStatus= s.PersonelStatus.Name , s.Id}).OrderBy(s =>s.Id).ToListAsync();
+              var dataset =await db.Personels.Include(s => s.PersonelStatus).Include(s=>s.PersonelStatusId).Include(s => s.RelationType).Select(s=>new { s.Code,s.CityId   , s.Name , s.LastName , s.Mobile, s.IdTelegram , s.NationalCode , RelationType= s.RelationType.Name , PersonelStatus= s.PersonelStatus.Name , s.Id , s.RelationTypeId , s.PersonelStatusId}).OrderBy(s =>s.Id).ToListAsync();
+                    if(RelationTypeId !=null && PersonelStatusId != null)
+                    {
+                        dataset = dataset.Where(s => s.RelationTypeId == RelationTypeId && s.PersonelStatusId == PersonelStatusId).ToList();
+                    }
+                    if (RelationTypeId != null)
+                    {
+                        dataset = dataset.Where(s => s.RelationTypeId == RelationTypeId).ToList();
+                    }
+                     if(PersonelStatusId != null)
+                    {
+                        dataset = dataset.Where(s => s.PersonelStatusId == PersonelStatusId).ToList();
+                    }
               report.Compile();
                 if (dataset.Count == 0)
                 {
+                 TempData["Error"] = "داده ای جهت چاپ یافت نشد";
                  return RedirectToAction(nameof(Index));
                 }
                 var dataTable = dataset.ToDataTable();
@@ -181,17 +197,35 @@ namespace SalamatKoodak.Controllers
                 var dataset =await db.Personels.Include(s => s.PersonelStatus).
                 Include(s => s.RelationType).Select(s => new { s.Code, s.CityId,s.ApplicationUserId,s.Name, s.LastName, s.Mobile, s.IdTelegram, 
                 s.NationalCode, RelationType = s.RelationType.Name, PersonelStatus = 
-                s.PersonelStatus.Name, s.Id }).Where(s => s.ApplicationUserId == user.Id && s.CityId == user.CityId)
+                s.PersonelStatus.Name, s.Id,
+                s.RelationTypeId,
+                s.PersonelStatusId
+                }).Where(s => s.ApplicationUserId == user.Id && s.CityId == user.CityId)
                 .OrderBy(s => s.Id).ToListAsync();
-                report.Compile();
+
+                    if (RelationTypeId != null && PersonelStatusId != null)
+                    {
+                        dataset = dataset.Where(s => s.RelationTypeId == RelationTypeId && s.PersonelStatusId == PersonelStatusId).ToList();
+                    }
+                    if (RelationTypeId != null)
+                    {
+                        dataset = dataset.Where(s => s.RelationTypeId == RelationTypeId).ToList();
+                    }
+                    if (PersonelStatusId != null)
+                    {
+                        dataset = dataset.Where(s => s.PersonelStatusId == PersonelStatusId).ToList();
+                    }
+                 report.Compile();
+
                 if(dataset.Count == 0)
                 {
-                    return RedirectToAction(nameof(Index));
+                        TempData["Error"] = "داده ای جهت چاپ یافت نشد";
+
+                        return RedirectToAction(nameof(Index));
                 }
                 var dataTable = dataset.ToDataTable();
                 dataTable.TableName = "DataSource1";
-                report.RegData(dataTable);
-      
+                report.RegData(dataTable);     
             }
          if (type == 0)
          {
@@ -207,7 +241,6 @@ namespace SalamatKoodak.Controllers
                 return Content(ex.Message);
             }
         }
-
         [HttpPost]
         public JsonResult GetPersonelInfo(int PersonelId)
         {

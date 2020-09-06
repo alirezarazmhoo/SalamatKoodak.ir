@@ -147,6 +147,8 @@ function EditAjax(ActionName, id) {
 
         },
         complete: function () {
+           
+
             $("#LoadingModal").modal('toggle');
         }
     });
@@ -177,7 +179,13 @@ function SetInputFilter(targets) {
         });
     }
 }
+function ResetListBox(targets) {
 
+    for (var i = 0; i < targets.length; i++) {
+        $('#' + targets[i] + '').prop('selectedIndex', 0);
+        }
+
+}
 
 function PersonelEditAjax(ActionName, id) {
     var fd = new FormData();

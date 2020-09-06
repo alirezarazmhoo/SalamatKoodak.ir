@@ -50,6 +50,9 @@
                 <table class="table table-hover text-center">
                     <tr>
                         <th>
+                            ردیف
+                        </th>
+                        <th>
                             نام
                         </th>
                         <th>
@@ -71,45 +74,51 @@
                             عملیات
                         </th>
                     </tr>
+                    @{ int rowNo = 0; }
+
                     @foreach (var item in Model)
                     {
 
-                        <tr>
-                            <td style=" max-width: 40px;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;">
-                                @item.Name
-                            </td>
-                            <td style=" max-width: 40px;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;">
-                                @item.LastName
-                            </td>
-                            @{
-                                if (String.IsNullOrEmpty(item.NationalCode))
-                                {
-                                    <td style=" max-width: 40px;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;color:red">
-                                        تعریف نشده
-                                    </td>
-                                }
-                                else
-                                {
-                                    <td style=" max-width: 40px;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;">
-                                        @item.NationalCode
-                                    </td>
+                <tr>
+                    <td>
+                        @(rowNo += 1)
 
-                                }
-                            }
+                    </td>
+                    <td>
+                        @item.Name
+                    </td>
+                    <td>
+                        @item.LastName
+                    </td>
+                    @{
+                        if (String.IsNullOrEmpty(item.NationalCode))
+                        {
+                            <td style=" max-width: 40px;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;color:red">
+                                تعریف نشده
+                            </td>
+                        }
+                        else
+                        {
                             <td style=" max-width: 40px;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;">
-                                @item.City.Name
+                                @item.NationalCode
                             </td>
-                            <td style=" max-width: 40px;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;">
-                                @item.UserName
-                            </td>
-                            <td style=" max-width: 40px;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;">
-                                @item.DecriptPass
-                            </td>
-                            <td>
-                                <button class="btn btn-warning" id="@item.Id"> ویرایش</button>|
-                                <button class="btn btn-danger" data-toggle="modal" data-target="#QuestionModal" onclick="AssignButtonClicked(this)" data-assigned-id="@item.Id"> حذف</button>
-                            </td>
-                        </tr>
+
+                        }
+                    }
+                    <td>
+                        @item.City.Name
+                    </td>
+                    <td>
+                        @item.UserName
+                    </td>
+                    <td>
+                        @item.DecriptPass
+                    </td>
+                    <td>
+                        <button class="btn btn-warning" id="@item.Id"> ویرایش</button>|
+                        <button class="btn btn-danger" data-toggle="modal" data-target="#QuestionModal" onclick="AssignButtonClicked(this)" data-assigned-id="@item.Id"> حذف</button>
+                    </td>
+                </tr>
                     }
                 </table>
 
@@ -213,8 +222,8 @@
 		$(".btn-warning").click(function () {
 			EditAjax("../Users/GetUserInfo",this.id);
 		});
+		$(".btn-success").click(function () { clear('register'); });
 		SetInputFilter(["NationalCode"]);
-
     }
     function Save() {
         if (checkvalidity('register') === 0) {
@@ -239,9 +248,7 @@
 	function AssignButtonClicked(elem) {	
 	   $('#UserId').val($(elem).data('assigned-id'));
 	}
-	function ShowModal() {
-		
+	function ShowModal() {		
 		clear('register');
-
 	}
 </script>
