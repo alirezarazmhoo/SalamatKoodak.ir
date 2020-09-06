@@ -1,0 +1,269 @@
+﻿@model PagedList.IPagedList<SalamatKoodak.Models.Personels>
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="text-center" style="border-style:solid;">
+    <h2 style="font-size:medium">لیست افراد ثبت شده</h2>
+</div>
+<br />
+<p>
+    @if (!User.IsInRole("Admin"))
+	{
+<p>
+    <a class="btn btn-success" data-toggle="modal" data-target="#myModal">ثبت جدید</a>
+</p>
+	}
+<div class="row">
+    <div class="col-sm-12">
+        <div class="text-center" style="border-style: solid;border-color:aquamarine">
+            <h2 style="font-size:medium">جستجو</h2>
+        </div>
+       @using (Html.BeginForm("Index",
+				"Personels",
+				FormMethod.Post))
+	   {
+
+        <div class="box zmdi-border-color" style="height:auto">
+            <div class="box-body table-responsive no-padding row ">
+
+                <div style="width:90%;margin-right:30px;margin-top:20px;">
+                    <div class="row" style="margin-right:5px;">
+                        <label for="exampleInputEmail1"> جستجو بر اساس ای دی تلگرام یا شماره همراه  :</label>
+                        <input name="searchString" class="" style="width:260px">
+                        @if (User.IsInRole("Admin"))
+						{
+
+                        <select style="width:160px" name="CityId" id="SearchCityId">
+                            <option>انتخاب کنید</option>
+                        </select>
+						}
+                    </div>
+                </div>
+            </div>
+            <div style="margin-top:20px">
+               <button style="margin-right:20px;" type="submit" class="btn btn-success">جستجو یا بارگزاری مجدد  </button>
+                <a style="margin-right:20px;font-family:'B Yekan'" href="../Personels/Print?Type=0" class="btn btn-primary">
+                    <i class="fa fa-file-pdf-o" aria-hidden="true"></i>خروجی PDF
+                </a>
+                <a style="margin-right:20px;font-family:'B Yekan'"  href="../Personels/Print?Type=1"  class="btn btn-primary">
+                    <i class="fa fa-file-excel-o" aria-hidden="true"></i>خروجی Excel
+                </a>
+            </div>
+
+
+        </div>
+	   }
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box">
+            <div class="box-body table-responsive no-padding">
+                <table class="table table-hover text-center">
+                    <tr>
+                        <th>
+                            کد
+                        </th>
+
+                        <th>
+                            نام
+                        </th>
+                        <th>
+                            نام خانوادگی
+                        </th>
+                        <th>
+                            شماره همراه
+                        </th>
+                        <th>
+                            ای دی شبکه اجتماعی
+                        </th>
+                        <th>
+                            کدملی
+                        </th>
+                        <th>
+                            نوع جذب
+                        </th>
+                        <th>
+                            سطح تعامل
+                        </th>
+                        @if (!User.IsInRole("Admin"))
+                        {
+                            <th>
+                                عملیات
+                            </th>
+						}
+                        </tr>
+                    @foreach (var item in Model)
+                    {
+
+                <tr>
+
+                    <td>
+                        @item.Code
+                    </td>
+                    <td>
+                        @item.Name
+                    </td>
+                    <td>
+                        @item.LastName
+                    </td>
+                    <td>
+                        @item.Mobile
+                    </td>
+                    <td>
+                        @item.IdTelegram
+                    </td>
+                    @{
+                        if (String.IsNullOrEmpty(item.NationalCode))
+                        {
+                            <td style="color:red">
+                                تعریف نشده
+                            </td>
+                        }
+                        else
+                        {
+                            <td>
+                                @item.NationalCode
+                            </td>
+
+                        }
+                    }
+                    <td>
+                        @item.RelationType.Name
+                    </td>
+                    <td>
+                        @item.PersonelStatus.Name
+                    </td>
+                    @if (!User.IsInRole("Admin"))
+                    {
+                        <td>
+                            <button class="btn btn-warning" id="@item.Id"> ویرایش</button>|
+                            <button class="btn btn-danger" data-toggle="modal" data-target="#QuestionModal" onclick="AssignButtonClicked(this)" data-assigned-id="@item.Id"> حذف</button>
+                        </td>
+                    }
+                </tr>
+
+                    }
+
+                </table>
+            </div>
+        </div>
+        @*@Html.Raw(ViewBag.Data.GetLinks())*@
+    </div>
+    <br />
+    صفحه @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) از @Model.PageCount
+
+    @Html.PagedListPager(Model, page => Url.Action("Index",
+        new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+<div style="text-align:right;margin-right:5px">
+    تعداد  رکوردها : @ViewBag.Count
+</div>
+
+</div>
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">ثبت افراد</h4>
+            </div>
+            <div class="modal-body">
+                <form id="register">
+                    <input id="PersonelId" name="PersonelId" hidden />
+
+                    <div class="form-group" style="margin-right:5px">
+                        <label for="exampleInputEmail1"> کد :</label>
+                        <input display="کد" id="Code" name="Code" class="form-control" style="width:70%" required>
+
+                    </div>
+                    <div class="form-group" style="margin-right:5px">
+                        <label for="exampleInputEmail1"> نام :</label>
+                        <input id="Name" name="Name" display="نام" class="form-control" style="width:70%" required>
+
+                    </div>
+                    <div class="form-group" style="margin-right:5px">
+                        <label for="exampleInputEmail1"> نام خانوادگی :</label>
+                        <input id="LastName" name="LastName" display="نام خانوادگی" class="form-control" style="width:70%" required>
+
+                    </div>
+                    <div class="form-group" style="margin-right:5px">
+                        <label for="exampleInputEmail1"> شماره همراه :</label>
+                        <input id="Mobile" maxlength="11" name="Mobile" display="شماره همراه" class="form-control" style="width:70%" required>
+
+                    </div>
+                    <div class="form-group" style="margin-right:5px">
+                        <label for="exampleInputEmail1"> ای دی شبکه اجتماعی :</label>
+                        <input id="IdTelegram" name="IdTelegram" display="ای دی تلگرام" class="form-control" style="width:70%" required>
+
+                    </div>
+                    <div class="form-group" style="margin-right:5px">
+                        <label for="exampleInputEmail1"> کدملی :</label>
+                        <input id="NationalCode" maxlength="10" name="NationalCode" display="کدملی" class="form-control" style="width:70%">
+                    </div>
+                    <div class="form-group" style="margin-right:5px">
+                        <label for="exampleInputEmail1"> نوع ارتباط :</label>
+                        <select class="form-control" style="width:70%" id="RelationTypeId">
+                        </select>
+
+                    </div>
+                    <div class="form-group" style="margin-right:5px">
+                        <label for="exampleInputEmail1"> وضعیت  :</label>
+                        <select class="form-control" style="width:70%" id="PersonelStatusId" name="PersonelStatusId">
+                        </select>
+
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" onclick="Save();" >ثبت</button>
+
+                <button type="button" class="btn btn-danger" data-dismiss="modal">انصراف</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="Error">
+
+</div>
+<div id="Success">
+
+</div>
+<div id="Question">
+
+</div>
+<script>
+    window.onload = Load;
+    function Load() {
+        CreateAllModals();
+        FillComboBox('../Personels/LoadRelationType', 'RelationTypeId');
+		FillComboBox('../Personels/LoadStatus', 'PersonelStatusId');
+        FillComboBox('../Users/LoadCityes', 'SearchCityId');
+
+		SetInputFilter(["Code", "Mobile", "NationalCode"]);
+        		$(".btn-warning").click(function () {
+			PersonelEditAjax("../Personels/GetPersonelInfo",this.id);
+		});
+    }
+    function Save() {
+        if (checkvalidity('register') === 0) {
+            return;
+        }
+		else {
+			$("#myModal").modal('toggle');
+
+            var Parameters = [{ id: "Code", htmlname: "Code", special: "" }, { id: "Name", htmlname: "Name", special: "" }, { id: "LastName", htmlname: "LastName", special: "" }, { id: "Mobile", htmlname: "Mobile", special: "" }, { id: "IdTelegram", htmlname: "IdTelegram", special: "" }, { id: "NationalCode", htmlname: "NationalCode", special: "" }, { id: "PersonelId", htmlname: "PersonelId", special: "" }, { id: "RelationTypeId", htmlname: "RelationTypeId", special: "combo" }, { id: "PersonelStatusId", htmlname: "PersonelStatusId", special: "combo" }];
+            PostAjax('../Personels/Register', Parameters,"../Personels/Index");
+        }
+	}
+    function AssignButtonClicked(elem) {	
+	   $('#PersonelId').val($(elem).data('assigned-id'));
+	}
+    	function Remove() {
+   var Parameters = [{ id: "PersonelId", htmlname: "PersonelId", special: "" }];
+    PostAjax('../Personels/Remove', Parameters,"../Personels/Index");
+	}
+</script>

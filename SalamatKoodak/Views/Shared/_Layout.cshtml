@@ -1,0 +1,155 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>صفحه شروع | کنترل پنل</title>
+	<!-- Tell the browser to be responsive to screen width -->
+	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+	<!-- Bootstrap 3.3.7 -->
+	<link rel="stylesheet" href="~/Content/Admin/dist/css/bootstrap-theme.css">
+	<!-- Bootstrap rtl -->
+	<link rel="stylesheet" href="~/Content/Admin/dist/css/rtl.css">
+	<!-- Font Awesome -->
+	<link rel="stylesheet" href="~/Content/Admin/bower_components/font-awesome/css/font-awesome.min.css">
+	<!-- Ionicons -->
+	<link rel="stylesheet" href="~/Content/Admin/bower_components/Ionicons/css/ionicons.min.css">
+	<!-- Theme style -->
+	<link rel="stylesheet" href="~/Content/Admin/dist/css/AdminLTE.css">
+
+	<link rel="stylesheet" href="~/Content/Admin/dist/css/skins/skin-blue.min.css">
+	<link rel="stylesheet"
+		  href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+
+
+	@RenderSection("head", false)
+</head>
+
+<body class="hold-transition skin-blue sidebar-mini">
+	<div class="wrapper">
+		<header class="main-header">
+			<a class="logo">
+				<span class="logo-mini">پنل</span>
+				<span class="logo-lg"><b>کنترل پنل مدیریت</b></span>
+			</a>
+			<nav class="navbar navbar-static-top">
+				<a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+					<span class="sr-only">Toggle navigation</span>
+				</a>
+			</nav>
+		</header>
+		<aside class="main-sidebar">
+			<section class="sidebar">
+				<div class="user-panel" style="height:40px;">
+
+					<div class="pull-right info">
+						<p style="text-align:right;margin-left:80px">@Session["FullName"].ToString()</p>
+
+					</div>
+				</div>
+				<ul class="sidebar-menu" data-widget="tree">
+					@if (User.IsInRole("Admin"))
+					{
+						<li class="active"><a href="../Users/Index"><i class="fa fa-user"></i> <span>کاربران سایت</span></a></li>
+
+					}
+					<li class="active"><a href="../Personels/Index"><i class="fa fa-users"></i> <span>لیست افراد</span></a></li>
+					@if (User.IsInRole("Admin"))
+					{
+						<li class="active"><a data-toggle="modal" data-target="#modalchangePass" style="cursor:pointer"><i class="fa fa-key"></i> <span>تغیر رمزعبور</span></a></li>
+
+
+					}
+					<li class="active"><a href="../Account/LogOff"><i class="fa fa-sign-out"></i> <span>خروج</span></a></li>
+					@*<li class="treeview">
+			<a href="#">
+				<i class="fa fa-link"></i> <span>چند سطحی</span>
+				<span class="pull-left-container">
+					<i class="fa fa-angle-right pull-left"></i>
+				</span>
+			</a>
+			<ul class="treeview-menu">
+				<li><a href="#">لینک سطح ۱</a></li>
+				<li><a href="#">لینک سطح ۱</a></li>
+			</ul>
+		</li>*@
+				</ul>
+			</section>
+		</aside>
+		<div class="content-wrapper">
+			
+			<section class="content container-fluid">
+				<div class="modal fade" id="LoadingModal" role="dialog" style="z-index:2">
+					<div class="modal-dialog modal-sm">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h4 class="modal-title">در حال پردازش</h4>
+							</div>
+							<div class="modal-body">
+								<p class="text text-warning" style="font-family:'B Yekan'">لطفا منتظر باشید</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal fade" id="modalchangePass" role="dialog">
+					<div class="modal-dialog modal-sm">
+					<form id="resetpass">
+
+							@Html.AntiForgeryToken()
+							<div class="modal-content">
+								<div class="modal-header">
+									<h4 class="modal-title">تغییررمزعبور</h4>
+									@Html.ValidationSummary("", new { @class = "text-danger" })
+								</div>
+								<div class="modal-body">
+									<label>
+										رمزقبلی :
+									</label>
+									<input class="form-control" name="OldPassword"  id="OldPassword"/>
+									<label>
+										رمزجدید :
+									</label>
+									<input class="form-control" name="NewPassword"  id="NewPassword"/>
+									<label>
+										تایید رمزجدید :
+									</label>
+									<input class="form-control" name="ConfirmPassword" id="ConfirmPassword" />
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-danger" data-dismiss="modal">انصراف</button>
+									<button type="button" class="btn btn-success" onclick="changepass();"  data-dismiss="modal">ثبت</button>
+								</div>
+							</div>
+					</form>
+						
+						</div>
+				</div>
+				@RenderBody()
+			</section>
+			<div class="modal"><!-- Place at bottom of page --></div>
+
+		</div>
+		<aside class="control-sidebar control-sidebar-dark">
+			<ul class="nav nav-tabs nav-justified control-sidebar-tabs">
+				<li class="active"><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a></li>
+				<li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a></li>
+			</ul>
+		</aside>
+		<div class="control-sidebar-bg"></div>
+	</div>
+
+	<script src="~/Content/Admin/bower_components/jquery/dist/jquery.min.js"></script>
+
+	<script src="~/Content/Admin/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+	<script src="~/Content/Admin/dist/js/adminlte.min.js"></script>
+	<script src="~/Scripts/Common.js"></script>
+	<script>
+		function changepass() {
+	 var Parameters = [{ id: "OldPassword", htmlname: "OldPassword", special: "" }, { id: "NewPassword", htmlname: "NewPassword", special: "" } , { id: "ConfirmPassword", htmlname: "ConfirmPassword", special: "" }];
+			PostAjax('../Manage/ChangePassword', Parameters, "../Home/Index");
+			clear('resetpass')
+		}
+	</script>
+</body>
+</html>

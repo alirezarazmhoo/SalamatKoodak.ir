@@ -1,0 +1,247 @@
+﻿@model PagedList.IPagedList<SalamatKoodak.Models.ApplicationUser>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="text-center" style="border-style:solid;">
+    <h2 style="font-size:medium">مدیریت کاربران سایت</h2>
+</div>
+<br />
+<p>
+<p>
+    <button class="btn btn-success" data-toggle="modal" data-target="#myModal" onclick="ShowModal();">ثبت جدید</button>
+</p>
+<div class="row">
+    <div class="col-sm-12 row">
+        <div class="text-center" style="border-style: solid;border-color:aquamarine">
+            <h2 style="font-size:medium">جستجو</h2>
+        </div>
+        @using (Html.BeginForm("Index",
+                  "Users",
+                  FormMethod.Post))
+        {
+            <div class="box zmdi-border-color" style="height:auto;">
+                <div class="box-body table-responsive no-padding row ">
+
+                    <div style="width:90%;margin-right:30px;margin-top:20px;">
+                        <div class="row" style="margin-right:5px;">
+                            <label for="exampleInputEmail1"> جستجو بر اساس همه موارد  :</label>
+                            <input name="searchString" class="" style="width:160px">
+                            <select style="width:160px" name="CityId" id="SearchCityId">
+                                <option>انتخاب کنید</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div style="margin-top:20px">
+                    <button style="margin-right:20px;" type="submit" class="btn btn-success">جستجو یا بارگزاری مجدد  </button>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box">
+            <div class="box-body table-responsive no-padding">
+                <table class="table table-hover text-center">
+                    <tr>
+                        <th>
+                            نام
+                        </th>
+                        <th>
+                            نام خانوادگی
+                        </th>
+                        <th>
+                            کدملی
+                        </th>
+                        <th>
+                            استان
+                        </th>
+                        <th>
+                            نام کاربری
+                        </th>
+                        <th>
+                            رمزعبور
+                        </th>
+                        <th>
+                            عملیات
+                        </th>
+                    </tr>
+                    @foreach (var item in Model)
+                    {
+
+                        <tr>
+                            <td style=" max-width: 40px;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;">
+                                @item.Name
+                            </td>
+                            <td style=" max-width: 40px;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;">
+                                @item.LastName
+                            </td>
+                            @{
+                                if (String.IsNullOrEmpty(item.NationalCode))
+                                {
+                                    <td style=" max-width: 40px;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;color:red">
+                                        تعریف نشده
+                                    </td>
+                                }
+                                else
+                                {
+                                    <td style=" max-width: 40px;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;">
+                                        @item.NationalCode
+                                    </td>
+
+                                }
+                            }
+                            <td style=" max-width: 40px;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;">
+                                @item.City.Name
+                            </td>
+                            <td style=" max-width: 40px;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;">
+                                @item.UserName
+                            </td>
+                            <td style=" max-width: 40px;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;">
+                                @item.DecriptPass
+                            </td>
+                            <td>
+                                <button class="btn btn-warning" id="@item.Id"> ویرایش</button>|
+                                <button class="btn btn-danger" data-toggle="modal" data-target="#QuestionModal" onclick="AssignButtonClicked(this)" data-assigned-id="@item.Id"> حذف</button>
+                            </td>
+                        </tr>
+                    }
+                </table>
+
+            </div>
+
+        </div>
+        <br />
+        صفحه @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) از @Model.PageCount
+
+        @Html.PagedListPager(Model, page => Url.Action("Index",
+            new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+        <div style="text-align:right;margin-right:5px">
+            تعداد  رکوردها : @ViewBag.Count
+        </div>
+
+    </div>
+</div>
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">ثبت افراد</h4>
+            </div>
+            <div class="modal-body">
+                <form id="register">
+
+                    <div class="form-group" style="margin-right:5px">
+                        <label for="exampleInputEmail1"> نام :</label>
+                        <input id="Name" name="Name" class="form-control" display="نام " style="width:70%;" required>
+
+                    </div>
+                    <div class="form-group" style="margin-right:5px">
+                        <label for="exampleInputEmail1"> نام خانوادگی :</label>
+                        <input id="LastName" name="LastName" class="form-control" display="نام خانوادگی" style="width:70%" required>
+
+                    </div>        <div class="form-group" style="margin-right:5px">
+                        <label for="exampleInputEmail1">نام کاربری جهت ورود به سامانه :</label>
+                        <input id="UserName" name="UserName" class="form-control" display="نام کاربری" style="width:70%" required>
+
+                    </div>
+                    <div class="form-group" style="margin-right:5px">
+                        <label for="exampleInputEmail1"> رمزعبور :</label>
+                        <input id="PasswordHash" name="PasswordHash" class="form-control" display="رمزعبور" style="width:70%" required>
+
+                    </div>
+                    <div class="form-group" style="margin-right:5px">
+                        <label for="exampleInputEmail1"> کدملی :</label>
+                        <input id="NationalCode" maxlength="10" name="NationalCode" class="form-control" style="width:70%">
+                    </div>
+
+                    <div class="form-group" style="margin-right:5px">
+                        <label for="exampleInputEmail1">استان:</label>
+                        <select class="form-control" style="width:70%" id="CityId" name="CityId">
+        
+                        </select>
+                    </div>
+                    <input id="UserId" name="UserId" hidden />
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" onclick="Save();" >ثبت</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">انصراف</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="RemoveModal" role="dialog">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header text-center text-danger">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+            </div>
+            <div class="modal-body">
+                <p>آیا مایل به حذف این رکورد هستید ؟</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success">تایید</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">انصراف</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="Error">
+
+</div>
+<div id="Success">
+
+</div>
+<div id="Question">
+
+</div>
+<script>
+    window.onload = Load;
+    function Load() {
+        CreateAllModals();
+		LoadCitys();
+		$(".btn-warning").click(function () {
+			EditAjax("../Users/GetUserInfo",this.id);
+		});
+		SetInputFilter(["NationalCode"]);
+
+    }
+    function Save() {
+        if (checkvalidity('register') === 0) {
+            return;
+        }
+		else {
+			$("#myModal").modal('toggle');
+
+            var Parameters = [{ id: "Name", htmlname: "Name", special: "" }, { id: "LastName", htmlname: "LastName", special: "" }, { id: "UserName", htmlname: "UserName", special: "" }, { id: "PasswordHash", htmlname: "PasswordHash", special: "" }, { id: "NationalCode", htmlname: "NationalCode", special: "" },{ id: "UserId", htmlname: "UserId", special: "" }, { id: "CityId", htmlname: "CityId", special: "combo" }];
+            PostAjax('../Account/Register', Parameters,"../Users/Index");
+        }
+    }
+    function LoadCitys() {
+        FillComboBox('../Users/LoadCityes', 'CityId');
+        FillComboBox('../Users/LoadCityes', 'SearchCityId');
+	}
+
+	function Remove() {
+   var Parameters = [{ id: "UserId", htmlname: "UserId", special: "" }];
+    PostAjax('../Users/Remove', Parameters,"../Users/Index");
+	}
+	function AssignButtonClicked(elem) {	
+	   $('#UserId').val($(elem).data('assigned-id'));
+	}
+	function ShowModal() {
+		
+		clear('register');
+
+	}
+</script>

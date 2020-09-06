@@ -1,0 +1,682 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<StiSerializer version="1.02" type="Net" application="StiReport">
+  <BeginRenderEvent>double width = 0;
+
+foreach (StiComponent comp in dataReport.Components)
+{
+	if (comp.Enabled)width += comp.Width;    
+}
+
+double factor = width / dataReport.Width;
+
+foreach (StiComponent comp in dataReport.Components)
+{
+	if (comp.Enabled)comp.Width /= factor;
+}
+
+foreach (StiComponent comp in headerReport.Components)
+{
+	if (comp.Enabled)comp.Width /= factor;
+}</BeginRenderEvent>
+  <Culture>fa-IR</Culture>
+  <Dictionary Ref="1" type="Dictionary" isKey="true">
+    <BusinessObjects isList="true" count="0" />
+    <Databases isList="true" count="0" />
+    <DataSources isList="true" count="1">
+      <DataSource1 Ref="2" type="DataTableSource" isKey="true">
+        <Alias>DataSource1</Alias>
+        <Columns isList="true" count="8">
+          <value>Code,System.String</value>
+          <value>Name,System.String</value>
+          <value>LastName,System.String</value>
+          <value>Mobile,System.String</value>
+          <value>IdTelegram,System.String</value>
+          <value>NationalCode,System.String</value>
+          <value>RelationType,System.String</value>
+          <value>PersonelStatus,System.String</value>
+        </Columns>
+        <Dictionary isRef="1" />
+        <Key>66a2b5a1607f48a2a01a959f6b5aa918</Key>
+        <Name>DataSource1</Name>
+        <NameInSource>DataSource1</NameInSource>
+      </DataSource1>
+    </DataSources>
+    <Relations isList="true" count="0" />
+    <Report isRef="0" />
+    <Resources isList="true" count="0" />
+    <Variables isList="true" count="0" />
+  </Dictionary>
+  <EngineVersion>EngineV2</EngineVersion>
+  <GlobalizationStrings isList="true" count="0" />
+  <Key>067e41178d8f4f4989e4a36177930de0</Key>
+  <MetaTags isList="true" count="0" />
+  <Pages isList="true" count="1">
+    <Page1 Ref="3" type="Page" isKey="true">
+      <Border>None;Black;2;Solid;False;4;Black</Border>
+      <Brush>Transparent</Brush>
+      <Components isList="true" count="4">
+        <PageFooterBand1 Ref="4" type="PageFooterBand" isKey="true">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>0,10.61,7.49,0.3</ClientRectangle>
+          <Components isList="true" count="3">
+            <Text4 Ref="5" type="Text" isKey="true">
+              <Brush>White</Brush>
+              <ClientRectangle>3.7,-0.01,0.3,0.2</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Yekan+,12,Bold</Font>
+              <Guid>00c835005eef484fb33744a350d8c4d9</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text4</Name>
+              <Page isRef="3" />
+              <Parent isRef="4" />
+              <Text>از</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text4>
+            <Text5 Ref="6" type="Text" isKey="true">
+              <Brush>White</Brush>
+              <ClientRectangle>4,-0.01,0.5,0.2</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Yekan+,12,Bold</Font>
+              <Guid>12162b0ea60f4f6eb0de8390a0041616</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text5</Name>
+              <Page isRef="3" />
+              <Parent isRef="4" />
+              <Text>{PageNumber}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>SystemVariables</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text5>
+            <Text6 Ref="7" type="Text" isKey="true">
+              <Brush>White</Brush>
+              <ClientRectangle>3.2,-0.01,0.5,0.2</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Yekan+,12,Bold</Font>
+              <Guid>02295995575d4302b49e47800c9b6131</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text6</Name>
+              <Page isRef="3" />
+              <Parent isRef="4" />
+              <Text>{TotalPageCount}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>SystemVariables</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text6>
+          </Components>
+          <Conditions isList="true" count="0" />
+          <Name>PageFooterBand1</Name>
+          <Page isRef="3" />
+          <Parent isRef="3" />
+        </PageFooterBand1>
+        <reportTitleBand Ref="8" type="ReportTitleBand" isKey="true">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>0,0.2,7.49,0.94</ClientRectangle>
+          <Components isList="true" count="6">
+            <txtTitle Ref="9" type="Text" isKey="true">
+              <Brush>White</Brush>
+              <ClientRectangle>3.08,0.09,1.58,0.22</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Yekan+,12</Font>
+              <Guid>0bde9d1337fe4379b28e30622cecd143</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>txtTitle</Name>
+              <Page isRef="3" />
+              <Parent isRef="8" />
+              <Text>گزارش افراد ثبت شده</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </txtTitle>
+            <Text27 Ref="10" type="Text" isKey="true">
+              <Brush>White</Brush>
+              <ClientRectangle>1.51,0.09,1.02,0.22</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Yekan+,11</Font>
+              <Guid>73ed4463031642278e8b407af222c38c</Guid>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text27</Name>
+              <Page isRef="3" />
+              <Parent isRef="8" />
+              <Text>تاریخ اخذ گزارش:</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>,,RightToLeft=True,,,A=0</TextOptions>
+              <VertAlignment>Center</VertAlignment>
+            </Text27>
+            <txtCurrentDate Ref="11" type="Text" isKey="true">
+              <Brush>White</Brush>
+              <ClientRectangle>0.05,0.09,1.4,0.22</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Yekan+,9</Font>
+              <Guid>b262ca9c49c645c880e2fb231c30ea28</Guid>
+              <Margins>0,0,0,0</Margins>
+              <Name>txtCurrentDate</Name>
+              <Page isRef="3" />
+              <Parent isRef="8" />
+              <TextBrush>Black</TextBrush>
+              <TextOptions>,,RightToLeft=True,,,A=0</TextOptions>
+              <VertAlignment>Center</VertAlignment>
+            </txtCurrentDate>
+            <txtusername Ref="12" type="Text" isKey="true">
+              <Brush>EmptyBrush</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>5.45,0.07,1.5,0.3</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Yekan+,10</Font>
+              <Guid>08effc5221e84a31a13e651ddada4ea7</Guid>
+              <Margins>0,0,0,0</Margins>
+              <Name>txtusername</Name>
+              <Page isRef="3" />
+              <Parent isRef="8" />
+              <TextBrush>Black</TextBrush>
+              <TextOptions>,,RightToLeft=True,,WordWrap=True,A=0</TextOptions>
+              <TextQuality>Wysiwyg</TextQuality>
+              <VertAlignment>Center</VertAlignment>
+            </txtusername>
+            <lblSearchCarName Ref="13" type="Text" isKey="true">
+              <Brush>EmptyBrush</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>6.97,0.07,0.4,0.3</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Yekan+,10</Font>
+              <Guid>db58712fdc0441bc8c3c58224a582aba</Guid>
+              <Margins>0,0,0,0</Margins>
+              <Name>lblSearchCarName</Name>
+              <Page isRef="3" />
+              <Parent isRef="8" />
+              <Text>کاربر :</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>,,RightToLeft=True,,WordWrap=True,A=0</TextOptions>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </lblSearchCarName>
+            <HorizontalLinePrimitive1 Ref="14" type="HorizontalLinePrimitive" isKey="true">
+              <ClientRectangle>0,0.5,7.5,0.01</ClientRectangle>
+              <Color>Black</Color>
+              <Conditions isList="true" count="0" />
+              <EndCap Ref="15" type="Cap" isKey="true">
+                <Color>Black</Color>
+              </EndCap>
+              <Guid>36fc032b773b4b11ba65212fe53fdf90</Guid>
+              <Name>HorizontalLinePrimitive1</Name>
+              <Page isRef="3" />
+              <Parent isRef="8" />
+              <StartCap Ref="16" type="Cap" isKey="true">
+                <Color>Black</Color>
+              </StartCap>
+            </HorizontalLinePrimitive1>
+          </Components>
+          <Conditions isList="true" count="0" />
+          <Guid>957eda30c0d2489f8651c83d1f6462db</Guid>
+          <Name>reportTitleBand</Name>
+          <Page isRef="3" />
+          <Parent isRef="3" />
+        </reportTitleBand>
+        <headerReport Ref="17" type="HeaderBand" isKey="true">
+          <Brush>Transparent</Brush>
+          <CanBreak>True</CanBreak>
+          <CanShrink>True</CanShrink>
+          <ClientRectangle>0,1.54,7.49,0.21</ClientRectangle>
+          <Components isList="true" count="9">
+            <txtHeaderOrder Ref="18" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[216:216:216]</Brush>
+              <CanBreak>True</CanBreak>
+              <CanGrow>True</CanGrow>
+              <CanShrink>True</CanShrink>
+              <ClientRectangle>7.09,0,0.4,0.21</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Yekan+,8</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>txtHeaderOrder</Name>
+              <Page isRef="3" />
+              <Parent isRef="17" />
+              <Text>ردیف</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <VertAlignment>Center</VertAlignment>
+            </txtHeaderOrder>
+            <txtHeaderName Ref="19" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[216:216:216]</Brush>
+              <CanBreak>True</CanBreak>
+              <CanGrow>True</CanGrow>
+              <CanShrink>True</CanShrink>
+              <ClientRectangle>6.3,0,0.79,0.21</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Yekan+,10</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>txtHeaderName</Name>
+              <Page isRef="3" />
+              <Parent isRef="17" />
+              <Text>کد</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </txtHeaderName>
+            <Text2 Ref="20" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[216:216:216]</Brush>
+              <CanBreak>True</CanBreak>
+              <CanGrow>True</CanGrow>
+              <CanShrink>True</CanShrink>
+              <ClientRectangle>5.6,0,0.79,0.21</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Yekan+,10</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text2</Name>
+              <Page isRef="3" />
+              <Parent isRef="17" />
+              <Text>نام</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text2>
+            <Text3 Ref="21" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[216:216:216]</Brush>
+              <CanBreak>True</CanBreak>
+              <CanGrow>True</CanGrow>
+              <CanShrink>True</CanShrink>
+              <ClientRectangle>4.6,0,0.99,0.21</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Yekan+,10</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text3</Name>
+              <Page isRef="3" />
+              <Parent isRef="17" />
+              <Text>نام خانوادگی</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text3>
+            <Text7 Ref="22" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[216:216:216]</Brush>
+              <CanBreak>True</CanBreak>
+              <CanGrow>True</CanGrow>
+              <CanShrink>True</CanShrink>
+              <ClientRectangle>3.5,0,1.09,0.21</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Yekan+,10</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text7</Name>
+              <Page isRef="3" />
+              <Parent isRef="17" />
+              <Text>شماره همراه</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text7>
+            <Text8 Ref="23" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[216:216:216]</Brush>
+              <CanBreak>True</CanBreak>
+              <CanGrow>True</CanGrow>
+              <CanShrink>True</CanShrink>
+              <ClientRectangle>2.6,0,0.89,0.21</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Yekan+,10</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text8</Name>
+              <Page isRef="3" />
+              <Parent isRef="17" />
+              <Text>ای دی تلگرام</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text8>
+            <Text9 Ref="24" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[216:216:216]</Brush>
+              <CanBreak>True</CanBreak>
+              <CanGrow>True</CanGrow>
+              <CanShrink>True</CanShrink>
+              <ClientRectangle>1.7,0,0.89,0.21</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Yekan+,10</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text9</Name>
+              <Page isRef="3" />
+              <Parent isRef="17" />
+              <Text>کدملی</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text9>
+            <Text10 Ref="25" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[216:216:216]</Brush>
+              <CanBreak>True</CanBreak>
+              <CanGrow>True</CanGrow>
+              <CanShrink>True</CanShrink>
+              <ClientRectangle>0.8,0,0.89,0.21</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Yekan+,10</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text10</Name>
+              <Page isRef="3" />
+              <Parent isRef="17" />
+              <Text>نوع ارتباط</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text10>
+            <Text11 Ref="26" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[216:216:216]</Brush>
+              <CanBreak>True</CanBreak>
+              <CanGrow>True</CanGrow>
+              <CanShrink>True</CanShrink>
+              <ClientRectangle>0,0,0.79,0.21</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Yekan+,10</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text11</Name>
+              <Page isRef="3" />
+              <Parent isRef="17" />
+              <Text>نوع ارتباط</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text11>
+          </Components>
+          <Conditions isList="true" count="0" />
+          <Name>headerReport</Name>
+          <Page isRef="3" />
+          <Parent isRef="3" />
+          <PrintIfEmpty>True</PrintIfEmpty>
+        </headerReport>
+        <dataReport Ref="27" type="DataBand" isKey="true">
+          <Brush>Transparent</Brush>
+          <BusinessObjectGuid isNull="true" />
+          <ClientRectangle>0,2.15,7.49,0.2</ClientRectangle>
+          <Components isList="true" count="9">
+            <Text1 Ref="28" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <CanBreak>True</CanBreak>
+              <CanGrow>True</CanGrow>
+              <CanShrink>True</CanShrink>
+              <ClientRectangle>7.09,0,0.4,0.2</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Yekan+,8</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text1</Name>
+              <Page isRef="3" />
+              <Parent isRef="27" />
+              <Text>{Line}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <Type>DataColumn</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text1>
+            <Name Ref="29" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <CanBreak>True</CanBreak>
+              <CanGrow>True</CanGrow>
+              <CanShrink>True</CanShrink>
+              <ClientRectangle>6.4,0,0.69,0.2</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Yekan+,10</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Name</Name>
+              <Page isRef="3" />
+              <Parent isRef="27" />
+              <Text>{DataSource1.Code}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <Type>DataColumn</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Name>
+            <Text12 Ref="30" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <CanBreak>True</CanBreak>
+              <CanGrow>True</CanGrow>
+              <CanShrink>True</CanShrink>
+              <ClientRectangle>5.6,0,0.79,0.2</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Yekan+,10</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text12</Name>
+              <Page isRef="3" />
+              <Parent isRef="27" />
+              <Text>{DataSource1.Name}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <Type>DataColumn</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text12>
+            <Text13 Ref="31" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <CanBreak>True</CanBreak>
+              <CanGrow>True</CanGrow>
+              <CanShrink>True</CanShrink>
+              <ClientRectangle>4.6,0,0.99,0.2</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Yekan+,10</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text13</Name>
+              <Page isRef="3" />
+              <Parent isRef="27" />
+              <Text>{DataSource1.LastName}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <Type>DataColumn</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text13>
+            <Text14 Ref="32" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <CanBreak>True</CanBreak>
+              <CanGrow>True</CanGrow>
+              <CanShrink>True</CanShrink>
+              <ClientRectangle>3.5,0,1.09,0.2</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Yekan+,10</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text14</Name>
+              <Page isRef="3" />
+              <Parent isRef="27" />
+              <Text>{DataSource1.Mobile}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <Type>DataColumn</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text14>
+            <Text15 Ref="33" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <CanBreak>True</CanBreak>
+              <CanGrow>True</CanGrow>
+              <CanShrink>True</CanShrink>
+              <ClientRectangle>2.6,0,0.89,0.2</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Yekan+,10</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text15</Name>
+              <Page isRef="3" />
+              <Parent isRef="27" />
+              <Text>{DataSource1.IdTelegram}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <Type>DataColumn</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text15>
+            <Text16 Ref="34" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <CanBreak>True</CanBreak>
+              <CanGrow>True</CanGrow>
+              <CanShrink>True</CanShrink>
+              <ClientRectangle>1.7,0,0.89,0.2</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Yekan+,10</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text16</Name>
+              <Page isRef="3" />
+              <Parent isRef="27" />
+              <Text>{DataSource1.NationalCode}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <Type>DataColumn</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text16>
+            <Text17 Ref="35" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <CanBreak>True</CanBreak>
+              <CanGrow>True</CanGrow>
+              <CanShrink>True</CanShrink>
+              <ClientRectangle>0.8,0,0.89,0.2</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Yekan+,10</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text17</Name>
+              <Page isRef="3" />
+              <Parent isRef="27" />
+              <Text>{DataSource1.RelationType}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <Type>DataColumn</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text17>
+            <Text18 Ref="36" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <CanBreak>True</CanBreak>
+              <CanGrow>True</CanGrow>
+              <CanShrink>True</CanShrink>
+              <ClientRectangle>0,0,0.79,0.2</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Yekan+,10</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text18</Name>
+              <Page isRef="3" />
+              <Parent isRef="27" />
+              <Text>{DataSource1.PersonelStatus}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <Type>DataColumn</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text18>
+          </Components>
+          <Conditions isList="true" count="0" />
+          <DataRelationName isNull="true" />
+          <DataSourceName>DataSource1</DataSourceName>
+          <Filters isList="true" count="0" />
+          <KeepChildTogether>True</KeepChildTogether>
+          <KeepDetails>KeepDetailsTogether</KeepDetails>
+          <Name>dataReport</Name>
+          <Page isRef="3" />
+          <Parent isRef="3" />
+          <Sort isList="true" count="0" />
+        </dataReport>
+      </Components>
+      <Conditions isList="true" count="0" />
+      <Guid>52c81021251d4553bc69df96ed894580</Guid>
+      <Margins>0.39,0.39,0.39,0.39</Margins>
+      <Name>Page1</Name>
+      <PageHeight>11.69</PageHeight>
+      <PageWidth>8.27</PageWidth>
+      <PaperSize>A4</PaperSize>
+      <Report isRef="0" />
+    </Page1>
+  </Pages>
+  <ReferencedAssemblies isList="true" count="8">
+    <value>System.Dll</value>
+    <value>System.Drawing.Dll</value>
+    <value>System.Windows.Forms.Dll</value>
+    <value>System.Data.Dll</value>
+    <value>System.Xml.Dll</value>
+    <value>Stimulsoft.Controls.Dll</value>
+    <value>Stimulsoft.Base.Dll</value>
+    <value>Stimulsoft.Report.Dll</value>
+  </ReferencedAssemblies>
+  <ReportAlias>Report</ReportAlias>
+  <ReportChanged>9/1/2020 2:38:34 PM</ReportChanged>
+  <ReportCreated>4/22/2012 12:03:44 PM</ReportCreated>
+  <ReportFile>C:\Users\Razmjoo\source\repos\SalamatKoodak\SalamatKoodak\Content\Report\stiPersonelsReport.mrt</ReportFile>
+  <ReportGuid>84b8d8267c254fd6bbf5bb88d51678f8</ReportGuid>
+  <ReportName>Report</ReportName>
+  <ReportUnit>Inches</ReportUnit>
+  <ReportVersion>2020.2.1.0</ReportVersion>
+  <Script>using System;
+using System.Drawing;
+using System.Windows.Forms;
+using System.Data;
+using Stimulsoft.Controls;
+using Stimulsoft.Base.Drawing;
+using Stimulsoft.Report;
+using Stimulsoft.Report.Dialogs;
+using Stimulsoft.Report.Components;
+
+namespace Reports
+{
+    public class Report : Stimulsoft.Report.StiReport
+    {
+        public Report()
+        {
+            this.InitializeComponent();
+        }
+
+        #region StiReport Designer generated code - do not modify
+		#endregion StiReport Designer generated code - do not modify
+    }
+}
+</Script>
+  <ScriptLanguage>CSharp</ScriptLanguage>
+  <Styles isList="true" count="0" />
+</StiSerializer>

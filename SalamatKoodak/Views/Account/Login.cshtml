@@ -1,0 +1,150 @@
+﻿@using SalamatKoodak.Models
+@model LoginViewModel
+@{
+    ViewBag.Title = "Log in";
+    Layout = null;
+}
+@*<h2>@ViewBag.Title.</h2>*@
+@*<div class="row">
+        <div class="col-md-8">
+            <section id="loginForm">
+                @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <h4>Use a local account to log in.</h4>
+                    <hr />
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <div class="checkbox">
+                                @Html.CheckBoxFor(m => m.RememberMe)
+                                @Html.LabelFor(m => m.RememberMe)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Log in" class="btn btn-default" />
+                        </div>
+                    </div>
+                    <p>
+                        @Html.ActionLink("Register as a new user", "Register")
+                    </p>
+
+                }
+            </section>
+        </div>
+        <div class="col-md-4">
+            <section id="socialLoginForm">
+                @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
+            </section>
+        </div>
+    </div>*@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--===============================================================================================-->
+    <link rel="icon" type="image/png" href="~/Content/Loggin/images/icons/favicon.ico" />
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Content/Loggin/vendor/bootstrap/css/bootstrap.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Content/Loggin/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Content/Loggin/vendor/animate/animate.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Content/Loggin/vendor/css-hamburgers/hamburgers.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Content/Loggin/vendor/select2/select2.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Content/Loggin/css/util.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/Loggin/css/main.css">
+    <!--===============================================================================================-->
+</head>
+<body>
+
+    <div class="limiter">
+        <div class="container-login100">
+            <div class="wrap-login100" style="font-family:'B Yekan'">
+                <div class="login100-pic js-tilt" data-tilt>
+                    <img src="~/Content/Loggin/images/img-01.png" alt="IMG">
+                </div>
+
+                @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                {
+                    <span class="login100-form-title">
+                        ورود اعضا
+                    </span>
+                    @Html.AntiForgeryToken()
+                   
+                    <div class="wrap-input100 validate-input" data-validate="نام کاربری را وارد کنید">
+                        <input class="input100" type="text" name="UserName" placeholder="نام کاربری">
+                        <span class="focus-input100"></span>
+                        <span class="symbol-input100">
+                            <i class="fa fa-envelope" aria-hidden="true"></i>
+                        </span>
+                    </div>
+
+                    <div class="wrap-input100 validate-input" data-validate="کلمه عبور را وارد کنید">
+                        <input class="input100" type="password" name="Password" placeholder="رمز عبور">
+                        <span class="focus-input100"></span>
+                        <span class="symbol-input100">
+                            <i class="fa fa-lock" aria-hidden="true"></i>
+                        </span>
+                    </div>
+
+                    <div class="container-login100-form-btn">
+                        <button class="login100-form-btn" style="font-family:'B Yekan'">
+                            ورود
+                        </button>
+                        <p style="text-align:right">
+
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        </p>
+                    </div>
+
+
+
+                }
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <!--===============================================================================================-->
+    <script src="~/Content/Loggin/vendor/jquery/jquery-3.2.1.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/Content/Loggin/vendor/bootstrap/js/popper.js"></script>
+    <script src="~/Content/Loggin/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/Content/Loggin/vendor/select2/select2.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/Content/Loggin/vendor/tilt/tilt.jquery.min.js"></script>
+    <script>
+        $('.js-tilt').tilt({
+            scale: 1.1
+        })
+    </script>
+    <!--===============================================================================================-->
+    <script src="~/Content/Loggin/js/main.js"></script>
+
+</body>
+</html>
