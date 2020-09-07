@@ -12,7 +12,7 @@
 <br />
 <p>
 <p>
-    <button class="btn btn-success" data-toggle="modal" data-target="#myModal" onclick="ShowModal();">ثبت جدید</button>
+    <button class="btn btn-success openmodal" data-toggle="modal" data-target="#myModal" onclick="ShowModal();">ثبت جدید</button>
 </p>
 <div class="row">
     <div class="col-sm-12 row">
@@ -42,6 +42,9 @@
             </div>
         }
     </div>
+</div>
+<div style="text-align:right;margin-right:5px">
+    تعداد  رکوردها : @ViewBag.Count
 </div>
 <div class="row">
     <div class="col-xs-12">
@@ -91,7 +94,7 @@
                         @item.LastName
                     </td>
                     @{
-                        if (String.IsNullOrEmpty(item.NationalCode))
+                        if (String.IsNullOrEmpty(item.NationalCode) || item.NationalCode == "0")
                         {
                             <td style=" max-width: 40px;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;color:red">
                                 تعریف نشده
@@ -130,10 +133,6 @@
 
         @Html.PagedListPager(Model, page => Url.Action("Index",
             new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
-        <div style="text-align:right;margin-right:5px">
-            تعداد  رکوردها : @ViewBag.Count
-        </div>
-
     </div>
 </div>
 <div class="modal fade" id="myModal" role="dialog">
@@ -148,26 +147,26 @@
 
                     <div class="form-group" style="margin-right:5px">
                         <label for="exampleInputEmail1"> نام :</label>
-                        <input id="Name" name="Name" class="form-control" display="نام " style="width:70%;" required>
+                        <input id="Name" name="Name" class="form-control" display="نام " placeholder="نام  را وارد کنید" style="width:70%;" required>
 
                     </div>
                     <div class="form-group" style="margin-right:5px">
                         <label for="exampleInputEmail1"> نام خانوادگی :</label>
-                        <input id="LastName" name="LastName" class="form-control" display="نام خانوادگی" style="width:70%" required>
+                        <input id="LastName" name="LastName" class="form-control" placeholder="نام خانوادگی را وارد کنید" display="نام خانوادگی" style="width:70%" required>
 
                     </div>        <div class="form-group" style="margin-right:5px">
                         <label for="exampleInputEmail1">نام کاربری جهت ورود به سامانه :</label>
-                        <input id="UserName" name="UserName" class="form-control" display="نام کاربری" style="width:70%" required>
+                        <input id="UserName" name="UserName" class="form-control" display="نام کاربری" placeholder="نام کاربری را وارد کنید" style="width:70%" required>
 
                     </div>
                     <div class="form-group" style="margin-right:5px">
                         <label for="exampleInputEmail1"> رمزعبور :</label>
-                        <input id="PasswordHash" name="PasswordHash" class="form-control" display="رمزعبور" style="width:70%" required>
+                        <input id="PasswordHash" name="PasswordHash" class="form-control" display="رمزعبور" style="width:70%" placeholder="حداقل 6 رقم" required>
 
                     </div>
                     <div class="form-group" style="margin-right:5px">
                         <label for="exampleInputEmail1"> کدملی :</label>
-                        <input id="NationalCode" maxlength="10" name="NationalCode" class="form-control" style="width:70%">
+                        <input id="NationalCode" maxlength="10" name="NationalCode" class="form-control" placeholder="کد ملی اختیاری است" style="width:70%">
                     </div>
 
                     <div class="form-group" style="margin-right:5px">
@@ -220,9 +219,11 @@
         CreateAllModals();
 		LoadCitys();
 		$(".btn-warning").click(function () {
-			EditAjax("../Users/GetUserInfo",this.id);
+			EditAjax("../Users/GetUserInfo", this.id);
+			var bodyStyle = document.body.style;
+               bodyStyle.removeProperty('padding-right');
 		});
-		$(".btn-success").click(function () { clear('register'); });
+		$(".openmodal").click(function () { clear('register'); });
 		SetInputFilter(["NationalCode"]);
     }
     function Save() {

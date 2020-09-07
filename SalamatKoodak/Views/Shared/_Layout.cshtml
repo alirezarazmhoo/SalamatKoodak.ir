@@ -26,7 +26,7 @@
 	@RenderSection("head", false)
 </head>
 
-<body class="hold-transition skin-blue sidebar-mini">
+<body class="hold-transition skin-blue sidebar-mini" sty>
 	<div class="wrapper">
 		<header class="main-header">
 			<a class="logo">
@@ -44,7 +44,10 @@
 				<div class="user-panel" style="height:40px;">
 
 					<div class="pull-right info">
+						@if(Session["FullName"] != null)
+						{
 						<p style="text-align:right;margin-left:80px">@Session["FullName"].ToString()</p>
+						}
 
 					</div>
 				</div>
@@ -90,39 +93,6 @@
 						</div>
 					</div>
 				</div>
-				<div class="modal fade" id="modalchangePass" role="dialog">
-					<div class="modal-dialog modal-sm">
-					<form id="resetpass">
-
-							@Html.AntiForgeryToken()
-							<div class="modal-content">
-								<div class="modal-header">
-									<h4 class="modal-title">تغییررمزعبور</h4>
-									@Html.ValidationSummary("", new { @class = "text-danger" })
-								</div>
-								<div class="modal-body">
-									<label>
-										رمزقبلی :
-									</label>
-									<input class="form-control" name="OldPassword"  id="OldPassword"/>
-									<label>
-										رمزجدید :
-									</label>
-									<input class="form-control" name="NewPassword"  id="NewPassword"/>
-									<label>
-										تایید رمزجدید :
-									</label>
-									<input class="form-control" name="ConfirmPassword" id="ConfirmPassword" />
-								</div>
-								<div class="modal-footer">
-									<button type="button" class="btn btn-danger" data-dismiss="modal">انصراف</button>
-									<button type="button" class="btn btn-success" onclick="changepass();"  data-dismiss="modal">ثبت</button>
-								</div>
-							</div>
-					</form>
-						
-						</div>
-				</div>
 				@RenderBody()
 			</section>
 			<div class="modal"><!-- Place at bottom of page --></div>
@@ -143,11 +113,7 @@
 	<script src="~/Content/Admin/dist/js/adminlte.min.js"></script>
 	<script src="~/Scripts/Common.js"></script>
 	<script>
-		function changepass() {
-	 var Parameters = [{ id: "OldPassword", htmlname: "OldPassword", special: "" }, { id: "NewPassword", htmlname: "NewPassword", special: "" } , { id: "ConfirmPassword", htmlname: "ConfirmPassword", special: "" }];
-			PostAjax('../Manage/ChangePassword', Parameters, "../Home/Index");
-			clear('resetpass')
-		}
+
 	</script>
 </body>
 </html>

@@ -304,3 +304,5 @@ D:\SalamatKoodak\SalamatKoodak\obj\Debug\SalamatKoodak.csproj.GenerateResource.c
 D:\SalamatKoodak\SalamatKoodak\obj\Debug\SalamatKoodak.csproj.CopyComplete
 D:\SalamatKoodak\SalamatKoodak\obj\Debug\SalamatKoodak.dll
 D:\SalamatKoodak\SalamatKoodak\obj\Debug\SalamatKoodak.pdb
+D:\SalamatKoodak\SalamatKoodak\obj\Debug\SalamatKoodak.Models.initial66674.resources
+D:\SalamatKoodak\SalamatKoodak\obj\Debug\SalamatKoodak.Models.Initial335435433.resources

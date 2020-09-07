@@ -264,6 +264,14 @@
     <Compile Include="Migrations\202009060635533_initial7778889.Designer.cs">
       <DependentUpon>202009060635533_initial7778889.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202009061251371_initial66674.cs" />
+    <Compile Include="Migrations\202009061251371_initial66674.Designer.cs">
+      <DependentUpon>202009061251371_initial66674.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202009070824182_Initial335435433.cs" />
+    <Compile Include="Migrations\202009070824182_Initial335435433.Designer.cs">
+      <DependentUpon>202009070824182_Initial335435433.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\City.cs" />
     <Compile Include="Models\EditModel.cs" />
@@ -8396,6 +8404,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202009060635533_initial7778889.resx">
       <DependentUpon>202009060635533_initial7778889.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009061251371_initial66674.resx">
+      <DependentUpon>202009061251371_initial66674.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009070824182_Initial335435433.resx">
+      <DependentUpon>202009070824182_Initial335435433.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -14,7 +14,7 @@
     @if (!User.IsInRole("Admin"))
 	{
 <p>
-    <a class="btn btn-success" data-toggle="modal" data-target="#myModal">ثبت جدید</a>
+    <a class="btn btn-success openmodal" data-toggle="modal" data-target="#myModal">ثبت جدید</a>
 </p>
 	}
 <div class="row">
@@ -32,7 +32,7 @@
 
                 <div style="width:90%;margin-right:30px;margin-top:20px;">
                     <div class="row" style="margin-right:5px;">
-                        <label for="exampleInputEmail1"> جستجو بر اساس ای دی تلگرام یا شماره همراه  :</label>
+                        <label for="exampleInputEmail1"> جستجو بر اساس ای دی شبکه  یا شماره همراه  :</label>
                         <input name="searchString" class="" style="width:260px">
                         @if (User.IsInRole("Admin"))
 						{
@@ -67,19 +67,19 @@
                     <label for="exampleInputEmail1">فیلتر خروجی پی دی اف یا اکسل بر اساس نوع جذب  :</label>
                     <select style="width:160px" name="RelationTypeId" id="SearchRelationTypeId">
                         <option>انتخاب کنید</option>
-           
+
                     </select>
                     <label for="exampleInputEmail1">فیلتر خروجی پی دی اف یا اکسل بر اساس سطح تعامل :</label>
                     <select style="width:160px" name="PersonelStatusId" id="SearchPersonelStatusId">
                         <option>انتخاب کنید</option>
                     </select>
-
+                    <input value="" name="type" id="typeprint" hidden>
                 </div>
                 <div>
                     <button onclick="GetPDfPrint();" type="button" style="margin-right:20px;font-family:'B Yekan'"  class="btn btn-primary">
                         <i class="fa fa-file-pdf-o" aria-hidden="true"></i>خروجی PDF
                     </button>
-                    <button type="submit" style="margin-right:20px;font-family:'B Yekan'"  class="btn btn-primary">
+                    <button type="button" onclick="GetExcelPrint();"  style="margin-right:20px;font-family:'B Yekan'"  class="btn btn-primary">
                         <i class="fa fa-file-excel-o" aria-hidden="true"></i>خروجی Excel
                     </button>
                 </div>
@@ -90,6 +90,9 @@
             </div>
 		}
         </div>
+</div>
+<div style="text-align:right;margin-right:5px">
+    تعداد  رکوردها : @ViewBag.Count
 </div>
 <div class="row">
     <div class="col-xs-12">
@@ -117,6 +120,9 @@
                             ای دی شبکه اجتماعی
                         </th>
                         <th>
+                            نوع شبکه 
+                        </th>
+                        <th>
                             کدملی
                         </th>
                         <th>
@@ -136,54 +142,70 @@
                     @foreach (var item in Model)
                     {
 
-                        <tr>
-                            <td>
-                                @(rowNo += 1)
+                <tr>
+                    <td>
+                        @(rowNo += 1)
+                    </td>
+                    <td>
+                        @item.Code
+                    </td>
+                    <td>
+                        @item.Name
+                    </td>
+                    <td>
+                        @item.LastName
+                    </td>
+                    <td>
+                        @item.Mobile
+                    </td>
+                    <td>
+                        @item.IdTelegram
+                    </td>
+                    @{
+                        if (item.NetWorkType == 0)
+                        {
+                            <td style="color:blue">
+                                شبکه اجتماعی
                             </td>
-                            <td>
-                                @item.Code
+                        }
+                        else
+                        {
+                            <td style="color:aqua">
+                                شبکه انتشار
                             </td>
-                            <td>
-                                @item.Name
-                            </td>
-                            <td>
-                                @item.LastName
-                            </td>
-                            <td>
-                                @item.Mobile
-                            </td>
-                            <td>
-                                @item.IdTelegram
-                            </td>
-                            @{
-                                if (String.IsNullOrEmpty(item.NationalCode))
-                                {
-                                    <td style="color:red">
-                                        تعریف نشده
-                                    </td>
-                                }
-                                else
-                                {
-                                    <td>
-                                        @item.NationalCode
-                                    </td>
+                        }
 
-                                }
-                            }
-                            <td>
-                                @item.RelationType.Name
+
+                    }
+                    @{
+                        if (String.IsNullOrEmpty(item.NationalCode))
+                        {
+                            <td style="color:red">
+                                تعریف نشده
                             </td>
+                        }
+                        else
+                        {
                             <td>
-                                @item.PersonelStatus.Name
+                                @item.NationalCode
                             </td>
-                            @if (!User.IsInRole("Admin"))
-                            {
-                                <td>
-                                    <button class="btn btn-warning" id="@item.Id"> ویرایش</button>|
-                                    <button class="btn btn-danger" data-toggle="modal" data-target="#QuestionModal" onclick="AssignButtonClicked(this)" data-assigned-id="@item.Id"> حذف</button>
-                                </td>
-                            }
-                        </tr>
+
+                        }
+                    }
+                    <td>
+                        @item.RelationType.Name
+                    </td>
+                    <td>
+                        @item.PersonelStatus.Name
+                    </td>
+                    @if (!User.IsInRole("Admin"))
+                    {
+                        <td>
+                            <button class="btn btn-warning" id="@item.Id"> ویرایش</button>|
+                            <button class="btn btn-danger" data-toggle="modal" data-target="#QuestionModal" onclick="AssignButtonClicked(this)" data-assigned-id="@item.Id"> حذف</button>
+                        </td>
+                    }
+                </tr>
 
                     }
 
@@ -197,9 +219,7 @@
 
     @Html.PagedListPager(Model, page => Url.Action("Index",
         new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
-<div style="text-align:right;margin-right:5px">
-    تعداد  رکوردها : @ViewBag.Count
-</div>
+
 
 </div>
 <div class="modal fade" id="myModal" role="dialog">
@@ -210,38 +230,50 @@
                 <h4 class="modal-title">ثبت افراد</h4>
             </div>
             <div class="modal-body">
+
                 <form id="register">
+
                     <input id="PersonelId" name="PersonelId" hidden />
 
                     <div class="form-group" style="margin-right:5px">
                         <label for="exampleInputEmail1"> کد :</label>
-                        <input display="کد" id="Code" name="Code" class="form-control" style="width:70%" required>
+                        <input display="کد" id="Code" name="Code" placeholder="کدشخص را وارد کنید" class="form-control" style="width:70%" required>
 
                     </div>
                     <div class="form-group" style="margin-right:5px">
                         <label for="exampleInputEmail1"> نام :</label>
-                        <input id="Name" name="Name" display="نام" class="form-control" style="width:70%" required>
+                        <input id="Name" name="Name" display="نام" class="form-control" placeholder="نام را وارد کنید" style="width:70%" required>
 
                     </div>
                     <div class="form-group" style="margin-right:5px">
                         <label for="exampleInputEmail1"> نام خانوادگی :</label>
-                        <input id="LastName" name="LastName" display="نام خانوادگی" class="form-control" style="width:70%" required>
+                        <input id="LastName" name="LastName" display="نام خانوادگی" placeholder="نام خانوادگی را وارد کنید" class="form-control" style="width:70%" required>
 
                     </div>
                     <div class="form-group" style="margin-right:5px">
                         <label for="exampleInputEmail1"> شماره همراه :</label>
-                        <input id="Mobile" maxlength="11" name="Mobile" display="شماره همراه" class="form-control" style="width:70%" required>
-
-                    </div>
-                    <div class="form-group" style="margin-right:5px">
-                        <label for="exampleInputEmail1"> ای دی شبکه اجتماعی :</label>
-                        <input id="IdTelegram" name="IdTelegram" display="ای دی تلگرام" class="form-control" style="width:70%" required>
+                        <input id="Mobile" maxlength="11" name="Mobile" display="شماره همراه" placeholder="شماره همراه را وارد کنید" class="form-control" style="width:70%" required>
 
                     </div>
                     <div class="form-group" style="margin-right:5px">
                         <label for="exampleInputEmail1"> کدملی :</label>
-                        <input id="NationalCode" maxlength="10" name="NationalCode" display="کدملی" class="form-control" style="width:70%">
+                        <input id="NationalCode" maxlength="10" name="NationalCode" placeholder="کد ملی را وارد کنید" display="کدملی" class="form-control" style="width:70%">
                     </div>
+                    <div class="form-group" style="margin-right:5px">
+                        <label for="exampleInputEmail1"> ای دی شبکه اجتماعی :</label>
+                        <input id="IdTelegram" name="IdTelegram" display="ای دی شبکه اجتماعی" placeholder="ای دی شبکه اجتماعی را وارد کنید"  class="form-control" style="width:70%" required >
+
+                    </div>
+
+                    <div class="form-group" style="margin-right:5px">
+                        <label for="exampleInputEmail1"> نوع شبکه :</label>
+                        <select class="form-control" style="width:70%" id="NetWorkType" name="NetWorkType">
+                            <option value="0">شبکه اجتماعی</option>
+                            <option value="1">شبکه انتشار</option>
+                        </select>
+                    </div>
+
+
                     <div class="form-group" style="margin-right:5px">
                         <label for="exampleInputEmail1"> نوع جذب :</label>
                         <select class="form-control" style="width:70%" id="RelationTypeId">
@@ -257,12 +289,16 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-success" onclick="Save();" >ثبت</button>
+                <button type="button" class="btn btn-success" onclick="Save();">ثبت</button>
 
                 <button type="button" class="btn btn-danger" data-dismiss="modal">انصراف</button>
+             
             </div>
         </div>
     </div>
+</div>
+<div>
+    
 </div>
 <div id="Error">
 
@@ -273,6 +309,7 @@
 <div id="Question">
 
 </div>
+
 <script>
     window.onload = Load;
     function Load() {
@@ -284,11 +321,14 @@
 		FillComboBox('../Personels/LoadRelationType', 'SearchRelationTypeId');
 		SetInputFilter(["Code", "Mobile", "NationalCode"]);
         		$(".btn-warning").click(function () {
-			PersonelEditAjax("../Personels/GetPersonelInfo",this.id);
+					PersonelEditAjax("../Personels/GetPersonelInfo", this.id);
+                    	var bodyStyle = document.body.style;
+               bodyStyle.removeProperty('padding-right');
 				});
 
-        	$(".btn-success").click(function () {
-                clear('register');
+        	$(".openmodal").click(function () {
+				clear('register');
+                ResetListBox('register')
 				});
         
         SearchPersonelStatusId
@@ -299,8 +339,7 @@
         }
 		else {
 			$("#myModal").modal('toggle');
-
-            var Parameters = [{ id: "Code", htmlname: "Code", special: "" }, { id: "Name", htmlname: "Name", special: "" }, { id: "LastName", htmlname: "LastName", special: "" }, { id: "Mobile", htmlname: "Mobile", special: "" }, { id: "IdTelegram", htmlname: "IdTelegram", special: "" }, { id: "NationalCode", htmlname: "NationalCode", special: "" }, { id: "PersonelId", htmlname: "PersonelId", special: "" }, { id: "RelationTypeId", htmlname: "RelationTypeId", special: "combo" }, { id: "PersonelStatusId", htmlname: "PersonelStatusId", special: "combo" }];
+            var Parameters = [{ id: "Code", htmlname: "Code", special: "" }, { id: "Name", htmlname: "Name", special: "" }, { id: "LastName", htmlname: "LastName", special: "" }, { id: "Mobile", htmlname: "Mobile", special: "" }, { id: "IdTelegram", htmlname: "IdTelegram", special: "" }, { id: "NationalCode", htmlname: "NationalCode", special: "" }, { id: "PersonelId", htmlname: "PersonelId", special: "" }, { id: "RelationTypeId", htmlname: "RelationTypeId", special: "combo" }, { id: "PersonelStatusId", htmlname: "PersonelStatusId", special: "combo" },{ id: "NetWorkType", htmlname: "NetWorkType", special: "combo" }];
             PostAjax('../Personels/Register', Parameters,"../Personels/Index");
         }
 	}
@@ -313,11 +352,15 @@
 	}
 
 	function GetPDfPrint() {
- 
 
-		$('<input value="0" name="type">').attr('type', 'hidden').appendTo('#frmsearch');
+		$("#typeprint").val('0');
 		$('#frmsearch').submit();
 		ResetListBox(["SearchRelationTypeId", "SearchPersonelStatusId"]);
 	}
 
+	function GetExcelPrint() {
+	$("#typeprint").val('1');
+		$('#frmsearch').submit();
+		ResetListBox(["SearchRelationTypeId", "SearchPersonelStatusId"]);
+	}
 </script>

@@ -123,12 +123,17 @@ namespace SalamatKoodak.Controllers
                         if(db.Users.Where(s=>s.UserName == model.UserName && s.Id !=model.UserId).Count() ==1 )
                         {
                             return Json(new { success = false, responseText = "نام کاربری تکراری است" }, JsonRequestBehavior.AllowGet);
-
                         }
                         if(currentUser.DecriptPass != model.PasswordHash)
                         {
+                            if (model.PasswordHash.Length < 6)
+                            {
+                                return Json(new { success = false, responseText = "رمز عبور باید حداقل 6 کاراکتر باشد" }, JsonRequestBehavior.AllowGet);
+
+                            }
                             manager.RemovePassword(currentUser.Id);
                            var _result=  manager.AddPassword(currentUser.Id, model.PasswordHash);
+                         
                             if (_result.Succeeded)
                             {
                                 currentUser.DecriptPass = model.PasswordHash;
@@ -156,7 +161,7 @@ namespace SalamatKoodak.Controllers
                     {
                      return Json(new { success = false , responseText = "نام کاربری تکراری است" }, JsonRequestBehavior.AllowGet);
                     }
-                    var user = new ApplicationUser { UserName = model.UserName, Name = model.Name , LastName = model.LastName , NationalCode = model.NationalCode,Email=""+ model .LastName+ "@yahoo.com" , DecriptPass  = model.PasswordHash,CityId = model.CityId };
+                    var user = new ApplicationUser { UserName = model.UserName, Name = model.Name , LastName = model.LastName , NationalCode = model.NationalCode ==null?"0" : model.NationalCode,Email=""+ model.UserName + "@yahoo.com" , DecriptPass  = model.PasswordHash,CityId = model.CityId };
                 var result = await UserManager.CreateAsync(user, model.PasswordHash);
                 if (result.Succeeded)
                 {

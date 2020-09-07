@@ -21,31 +21,41 @@ namespace SalamatKoodak.Controllers
         public async Task<ActionResult> Index(int? page, string searchString,int? CityId)
         {
             //492cc8fa - 468b - 457a - 86a4 - adc4de1344d1
-            List<ApplicationUser> users =await db.Users.Where(p=>p.Roles.Select(x=>x.RoleId).Contains("3054772e-bacc-4a9f-bc8e-c47cc44bfed1")).Include(s => s.City).ToListAsync();
-
-            if (!String.IsNullOrEmpty(searchString) || CityId !=null)
+            try
             {
-                if (CityId != null)
+
+
+                List<ApplicationUser> users = await db.Users.Where(p => p.Roles.Select(x => x.RoleId).Contains("3054772e-bacc-4a9f-bc8e-c47cc44bfed1")).Include(s => s.City).ToListAsync();
+
+                if (!String.IsNullOrEmpty(searchString) || CityId != null)
                 {
-                   users = users.Where(s => s.CityId == CityId).ToList();
-                    ViewBag.Count = users.Count;
+                    if (CityId != null)
+                    {
+                        users = users.Where(s => s.CityId == CityId).ToList();
+                        ViewBag.Count = users.Count;
+                    }
+                    else
+                    {
+                        users = users.Where(s => s.Name.Contains(searchString) ||
+                        s.LastName.Contains(searchString) ||
+                        s.UserName.Contains(searchString) || s.NationalCode.Contains(searchString) 
+                      ).ToList();
+                        ViewBag.Count = users.Count;
+                    }
                 }
                 else
                 {
-                 users = users.Where(s => s.Name.Contains(searchString) ||
-                 s.LastName.Contains(searchString) ||
-                 s.UserName.Contains(searchString)).ToList();
-                 ViewBag.Count = users.Count;
+                    page = 1;
                 }
+                int pageSize = 5;
+                int pageNumber = (page ?? 1);
+                ViewBag.Count = users.Count;
+                return View(users.OrderBy(s => s.Id).ToPagedList(pageNumber, pageSize));
             }
-            else
+            catch(Exception ex)
             {
-              page = 1;
+                return Content(ex.Message);
             }
-            int pageSize = 5;
-            int pageNumber = (page ?? 1);
-            ViewBag.Count = users.Count;
-            return View(users.OrderBy(s=>s.Id).ToPagedList(pageNumber, pageSize));
         }
         public ApplicationSignInManager SignInManager
         {
@@ -72,6 +82,8 @@ namespace SalamatKoodak.Controllers
         }
 
         [HttpGet]
+        [Authorize]
+
         public async Task<JsonResult> LoadCityes()
         {
             List<City> cities =await db.Cities.Where(s=>s.Id !=32).ToListAsync();
@@ -79,6 +91,8 @@ namespace SalamatKoodak.Controllers
         }
 
         [HttpPost]
+        [Authorize]
+
         public async Task< JsonResult> Remove(string UserId)
         {
             ApplicationUser user = db.Users.Find(UserId);
@@ -105,7 +119,9 @@ namespace SalamatKoodak.Controllers
             return Json(new { success = true }, JsonRequestBehavior.AllowGet);
         }
         [HttpPost]
-        public  JsonResult GetUserInfo(string UserId)
+        [Authorize]
+
+        public JsonResult GetUserInfo(string UserId)
         {
             List<EditModel> edit = new List<EditModel>();
             ApplicationUser user = db.Users.Find(UserId);
@@ -122,12 +138,15 @@ namespace SalamatKoodak.Controllers
             edit.Add(new EditModel() { Key = "UserId", Value = user.Id });
             return Json(new { success = true , listItem = edit.ToList(), cityid = user.CityId }, JsonRequestBehavior.AllowGet);
         }
+        [Authorize]
 
         public ActionResult ChangePassword()
         {
             return View();
         }
         [HttpPost]
+        [Authorize]
+
         public async Task<ActionResult> ChangePassword(ChangePasswordViewModel model)
         {
             if (!ModelState.IsValid)

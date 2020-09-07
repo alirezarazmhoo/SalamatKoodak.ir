@@ -25,7 +25,7 @@ foreach (StiComponent comp in headerReport.Components)
     <DataSources isList="true" count="1">
       <DataSource1 Ref="2" type="DataTableSource" isKey="true">
         <Alias>DataSource1</Alias>
-        <Columns isList="true" count="8">
+        <Columns isList="true" count="9">
           <value>Code,System.String</value>
           <value>Name,System.String</value>
           <value>LastName,System.String</value>
@@ -34,6 +34,7 @@ foreach (StiComponent comp in headerReport.Components)
           <value>NationalCode,System.String</value>
           <value>RelationType,System.String</value>
           <value>PersonelStatus,System.String</value>
+          <value>NetWorkTypeName,System.String</value>
         </Columns>
         <Dictionary isRef="1" />
         <Key>66a2b5a1607f48a2a01a959f6b5aa918</Key>
@@ -222,7 +223,7 @@ foreach (StiComponent comp in headerReport.Components)
           <CanBreak>True</CanBreak>
           <CanShrink>True</CanShrink>
           <ClientRectangle>0,1.54,7.49,0.21</ClientRectangle>
-          <Components isList="true" count="9">
+          <Components isList="true" count="10">
             <txtHeaderOrder Ref="18" type="Text" isKey="true">
               <Border>All;Black;1;Solid;False;4;Black</Border>
               <Brush>[216:216:216]</Brush>
@@ -249,7 +250,7 @@ foreach (StiComponent comp in headerReport.Components)
               <CanBreak>True</CanBreak>
               <CanGrow>True</CanGrow>
               <CanShrink>True</CanShrink>
-              <ClientRectangle>6.3,0,0.79,0.21</ClientRectangle>
+              <ClientRectangle>6.5,0,0.59,0.21</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Font>B Yekan+,10</Font>
               <GrowToHeight>True</GrowToHeight>
@@ -270,7 +271,7 @@ foreach (StiComponent comp in headerReport.Components)
               <CanBreak>True</CanBreak>
               <CanGrow>True</CanGrow>
               <CanShrink>True</CanShrink>
-              <ClientRectangle>5.6,0,0.79,0.21</ClientRectangle>
+              <ClientRectangle>5.9,0,0.59,0.21</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Font>B Yekan+,10</Font>
               <GrowToHeight>True</GrowToHeight>
@@ -291,7 +292,7 @@ foreach (StiComponent comp in headerReport.Components)
               <CanBreak>True</CanBreak>
               <CanGrow>True</CanGrow>
               <CanShrink>True</CanShrink>
-              <ClientRectangle>4.6,0,0.99,0.21</ClientRectangle>
+              <ClientRectangle>5,0,0.89,0.21</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Font>B Yekan+,10</Font>
               <GrowToHeight>True</GrowToHeight>
@@ -312,7 +313,7 @@ foreach (StiComponent comp in headerReport.Components)
               <CanBreak>True</CanBreak>
               <CanGrow>True</CanGrow>
               <CanShrink>True</CanShrink>
-              <ClientRectangle>3.5,0,1.09,0.21</ClientRectangle>
+              <ClientRectangle>4.2,0,0.79,0.21</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Font>B Yekan+,10</Font>
               <GrowToHeight>True</GrowToHeight>
@@ -333,7 +334,7 @@ foreach (StiComponent comp in headerReport.Components)
               <CanBreak>True</CanBreak>
               <CanGrow>True</CanGrow>
               <CanShrink>True</CanShrink>
-              <ClientRectangle>2.6,0,0.89,0.21</ClientRectangle>
+              <ClientRectangle>3,0,1.19,0.21</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Font>B Yekan+,10</Font>
               <GrowToHeight>True</GrowToHeight>
@@ -342,7 +343,7 @@ foreach (StiComponent comp in headerReport.Components)
               <Name>Text8</Name>
               <Page isRef="3" />
               <Parent isRef="17" />
-              <Text>ای دی تلگرام</Text>
+              <Text>ای دی شبکه اجتماعی</Text>
               <TextBrush>Black</TextBrush>
               <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
               <Type>Expression</Type>
@@ -354,7 +355,7 @@ foreach (StiComponent comp in headerReport.Components)
               <CanBreak>True</CanBreak>
               <CanGrow>True</CanGrow>
               <CanShrink>True</CanShrink>
-              <ClientRectangle>1.7,0,0.89,0.21</ClientRectangle>
+              <ClientRectangle>1.4,0,0.59,0.21</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Font>B Yekan+,10</Font>
               <GrowToHeight>True</GrowToHeight>
@@ -375,7 +376,7 @@ foreach (StiComponent comp in headerReport.Components)
               <CanBreak>True</CanBreak>
               <CanGrow>True</CanGrow>
               <CanShrink>True</CanShrink>
-              <ClientRectangle>0.8,0,0.89,0.21</ClientRectangle>
+              <ClientRectangle>0.8,0,0.59,0.21</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Font>B Yekan+,10</Font>
               <GrowToHeight>True</GrowToHeight>
@@ -384,7 +385,7 @@ foreach (StiComponent comp in headerReport.Components)
               <Name>Text10</Name>
               <Page isRef="3" />
               <Parent isRef="17" />
-              <Text>نوع ارتباط</Text>
+              <Text>نوع جذب</Text>
               <TextBrush>Black</TextBrush>
               <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
               <Type>Expression</Type>
@@ -411,6 +412,27 @@ foreach (StiComponent comp in headerReport.Components)
               <Type>Expression</Type>
               <VertAlignment>Center</VertAlignment>
             </Text11>
+            <Text19 Ref="27" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[216:216:216]</Brush>
+              <CanBreak>True</CanBreak>
+              <CanGrow>True</CanGrow>
+              <CanShrink>True</CanShrink>
+              <ClientRectangle>2,0,0.99,0.21</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Yekan+,10</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text19</Name>
+              <Page isRef="3" />
+              <Parent isRef="17" />
+              <Text>نوع شبکه اجتماعی</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text19>
           </Components>
           <Conditions isList="true" count="0" />
           <Name>headerReport</Name>
@@ -418,12 +440,12 @@ foreach (StiComponent comp in headerReport.Components)
           <Parent isRef="3" />
           <PrintIfEmpty>True</PrintIfEmpty>
         </headerReport>
-        <dataReport Ref="27" type="DataBand" isKey="true">
+        <dataReport Ref="28" type="DataBand" isKey="true">
           <Brush>Transparent</Brush>
           <BusinessObjectGuid isNull="true" />
           <ClientRectangle>0,2.15,7.49,0.2</ClientRectangle>
-          <Components isList="true" count="9">
-            <Text1 Ref="28" type="Text" isKey="true">
+          <Components isList="true" count="10">
+            <Text1 Ref="29" type="Text" isKey="true">
               <Border>All;Black;1;Solid;False;4;Black</Border>
               <Brush>Transparent</Brush>
               <CanBreak>True</CanBreak>
@@ -437,20 +459,20 @@ foreach (StiComponent comp in headerReport.Components)
               <Margins>0,0,0,0</Margins>
               <Name>Text1</Name>
               <Page isRef="3" />
-              <Parent isRef="27" />
+              <Parent isRef="28" />
               <Text>{Line}</Text>
               <TextBrush>Black</TextBrush>
               <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
               <Type>DataColumn</Type>
               <VertAlignment>Center</VertAlignment>
             </Text1>
-            <Name Ref="29" type="Text" isKey="true">
+            <Name Ref="30" type="Text" isKey="true">
               <Border>All;Black;1;Solid;False;4;Black</Border>
               <Brush>Transparent</Brush>
               <CanBreak>True</CanBreak>
               <CanGrow>True</CanGrow>
               <CanShrink>True</CanShrink>
-              <ClientRectangle>6.4,0,0.69,0.2</ClientRectangle>
+              <ClientRectangle>6.5,0,0.59,0.2</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Font>B Yekan+,10</Font>
               <GrowToHeight>True</GrowToHeight>
@@ -458,20 +480,20 @@ foreach (StiComponent comp in headerReport.Components)
               <Margins>0,0,0,0</Margins>
               <Name>Name</Name>
               <Page isRef="3" />
-              <Parent isRef="27" />
+              <Parent isRef="28" />
               <Text>{DataSource1.Code}</Text>
               <TextBrush>Black</TextBrush>
               <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
               <Type>DataColumn</Type>
               <VertAlignment>Center</VertAlignment>
             </Name>
-            <Text12 Ref="30" type="Text" isKey="true">
+            <Text12 Ref="31" type="Text" isKey="true">
               <Border>All;Black;1;Solid;False;4;Black</Border>
               <Brush>Transparent</Brush>
               <CanBreak>True</CanBreak>
               <CanGrow>True</CanGrow>
               <CanShrink>True</CanShrink>
-              <ClientRectangle>5.6,0,0.79,0.2</ClientRectangle>
+              <ClientRectangle>5.9,0,0.59,0.2</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Font>B Yekan+,10</Font>
               <GrowToHeight>True</GrowToHeight>
@@ -479,20 +501,20 @@ foreach (StiComponent comp in headerReport.Components)
               <Margins>0,0,0,0</Margins>
               <Name>Text12</Name>
               <Page isRef="3" />
-              <Parent isRef="27" />
+              <Parent isRef="28" />
               <Text>{DataSource1.Name}</Text>
               <TextBrush>Black</TextBrush>
               <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
               <Type>DataColumn</Type>
               <VertAlignment>Center</VertAlignment>
             </Text12>
-            <Text13 Ref="31" type="Text" isKey="true">
+            <Text13 Ref="32" type="Text" isKey="true">
               <Border>All;Black;1;Solid;False;4;Black</Border>
               <Brush>Transparent</Brush>
               <CanBreak>True</CanBreak>
               <CanGrow>True</CanGrow>
               <CanShrink>True</CanShrink>
-              <ClientRectangle>4.6,0,0.99,0.2</ClientRectangle>
+              <ClientRectangle>5,0,0.89,0.2</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Font>B Yekan+,10</Font>
               <GrowToHeight>True</GrowToHeight>
@@ -500,20 +522,20 @@ foreach (StiComponent comp in headerReport.Components)
               <Margins>0,0,0,0</Margins>
               <Name>Text13</Name>
               <Page isRef="3" />
-              <Parent isRef="27" />
+              <Parent isRef="28" />
               <Text>{DataSource1.LastName}</Text>
               <TextBrush>Black</TextBrush>
               <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
               <Type>DataColumn</Type>
               <VertAlignment>Center</VertAlignment>
             </Text13>
-            <Text14 Ref="32" type="Text" isKey="true">
+            <Text14 Ref="33" type="Text" isKey="true">
               <Border>All;Black;1;Solid;False;4;Black</Border>
               <Brush>Transparent</Brush>
               <CanBreak>True</CanBreak>
               <CanGrow>True</CanGrow>
               <CanShrink>True</CanShrink>
-              <ClientRectangle>3.5,0,1.09,0.2</ClientRectangle>
+              <ClientRectangle>4.2,0,0.79,0.2</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Font>B Yekan+,10</Font>
               <GrowToHeight>True</GrowToHeight>
@@ -521,20 +543,20 @@ foreach (StiComponent comp in headerReport.Components)
               <Margins>0,0,0,0</Margins>
               <Name>Text14</Name>
               <Page isRef="3" />
-              <Parent isRef="27" />
+              <Parent isRef="28" />
               <Text>{DataSource1.Mobile}</Text>
               <TextBrush>Black</TextBrush>
               <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
               <Type>DataColumn</Type>
               <VertAlignment>Center</VertAlignment>
             </Text14>
-            <Text15 Ref="33" type="Text" isKey="true">
+            <Text15 Ref="34" type="Text" isKey="true">
               <Border>All;Black;1;Solid;False;4;Black</Border>
               <Brush>Transparent</Brush>
               <CanBreak>True</CanBreak>
               <CanGrow>True</CanGrow>
               <CanShrink>True</CanShrink>
-              <ClientRectangle>2.6,0,0.89,0.2</ClientRectangle>
+              <ClientRectangle>3,0,1.19,0.2</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Font>B Yekan+,10</Font>
               <GrowToHeight>True</GrowToHeight>
@@ -542,20 +564,20 @@ foreach (StiComponent comp in headerReport.Components)
               <Margins>0,0,0,0</Margins>
               <Name>Text15</Name>
               <Page isRef="3" />
-              <Parent isRef="27" />
+              <Parent isRef="28" />
               <Text>{DataSource1.IdTelegram}</Text>
               <TextBrush>Black</TextBrush>
               <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
               <Type>DataColumn</Type>
               <VertAlignment>Center</VertAlignment>
             </Text15>
-            <Text16 Ref="34" type="Text" isKey="true">
+            <Text16 Ref="35" type="Text" isKey="true">
               <Border>All;Black;1;Solid;False;4;Black</Border>
               <Brush>Transparent</Brush>
               <CanBreak>True</CanBreak>
               <CanGrow>True</CanGrow>
               <CanShrink>True</CanShrink>
-              <ClientRectangle>1.7,0,0.89,0.2</ClientRectangle>
+              <ClientRectangle>1.4,0,0.59,0.2</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Font>B Yekan+,10</Font>
               <GrowToHeight>True</GrowToHeight>
@@ -563,20 +585,20 @@ foreach (StiComponent comp in headerReport.Components)
               <Margins>0,0,0,0</Margins>
               <Name>Text16</Name>
               <Page isRef="3" />
-              <Parent isRef="27" />
+              <Parent isRef="28" />
               <Text>{DataSource1.NationalCode}</Text>
               <TextBrush>Black</TextBrush>
               <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
               <Type>DataColumn</Type>
               <VertAlignment>Center</VertAlignment>
             </Text16>
-            <Text17 Ref="35" type="Text" isKey="true">
+            <Text17 Ref="36" type="Text" isKey="true">
               <Border>All;Black;1;Solid;False;4;Black</Border>
               <Brush>Transparent</Brush>
               <CanBreak>True</CanBreak>
               <CanGrow>True</CanGrow>
               <CanShrink>True</CanShrink>
-              <ClientRectangle>0.8,0,0.89,0.2</ClientRectangle>
+              <ClientRectangle>0.8,0,0.59,0.2</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Font>B Yekan+,10</Font>
               <GrowToHeight>True</GrowToHeight>
@@ -584,14 +606,14 @@ foreach (StiComponent comp in headerReport.Components)
               <Margins>0,0,0,0</Margins>
               <Name>Text17</Name>
               <Page isRef="3" />
-              <Parent isRef="27" />
+              <Parent isRef="28" />
               <Text>{DataSource1.RelationType}</Text>
               <TextBrush>Black</TextBrush>
               <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
               <Type>DataColumn</Type>
               <VertAlignment>Center</VertAlignment>
             </Text17>
-            <Text18 Ref="36" type="Text" isKey="true">
+            <Text18 Ref="37" type="Text" isKey="true">
               <Border>All;Black;1;Solid;False;4;Black</Border>
               <Brush>Transparent</Brush>
               <CanBreak>True</CanBreak>
@@ -605,13 +627,34 @@ foreach (StiComponent comp in headerReport.Components)
               <Margins>0,0,0,0</Margins>
               <Name>Text18</Name>
               <Page isRef="3" />
-              <Parent isRef="27" />
+              <Parent isRef="28" />
               <Text>{DataSource1.PersonelStatus}</Text>
               <TextBrush>Black</TextBrush>
               <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
               <Type>DataColumn</Type>
               <VertAlignment>Center</VertAlignment>
             </Text18>
+            <Text20 Ref="38" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <CanBreak>True</CanBreak>
+              <CanGrow>True</CanGrow>
+              <CanShrink>True</CanShrink>
+              <ClientRectangle>2,0,0.99,0.2</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Yekan+,10</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text20</Name>
+              <Page isRef="3" />
+              <Parent isRef="28" />
+              <Text>{DataSource1.NetWorkTypeName}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <Type>DataColumn</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text20>
           </Components>
           <Conditions isList="true" count="0" />
           <DataRelationName isNull="true" />
@@ -646,10 +689,10 @@ foreach (StiComponent comp in headerReport.Components)
     <value>Stimulsoft.Report.Dll</value>
   </ReferencedAssemblies>
   <ReportAlias>Report</ReportAlias>
-  <ReportChanged>9/1/2020 2:38:34 PM</ReportChanged>
+  <ReportChanged>9/7/2020 1:35:35 PM</ReportChanged>
   <ReportCreated>4/22/2012 12:03:44 PM</ReportCreated>
-  <ReportFile>C:\Users\Razmjoo\source\repos\SalamatKoodak\SalamatKoodak\Content\Report\stiPersonelsReport.mrt</ReportFile>
-  <ReportGuid>84b8d8267c254fd6bbf5bb88d51678f8</ReportGuid>
+  <ReportFile>D:\SalamatKoodak\SalamatKoodak\Content\Report\stiPersonelsReport.mrt</ReportFile>
+  <ReportGuid>0419e1bfb7ea42b1b3d5095cff44a0c6</ReportGuid>
   <ReportName>Report</ReportName>
   <ReportUnit>Inches</ReportUnit>
   <ReportVersion>2020.2.1.0</ReportVersion>

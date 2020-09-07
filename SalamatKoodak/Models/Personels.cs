@@ -35,6 +35,10 @@ namespace SalamatKoodak.Models
 		public City City { get; set; }
 		public string ApplicationUserId { get; set; }
 		public ApplicationUser ApplicationUser { get; set; }
+		public byte NetWorkType { get; set; }
+		public string NetWorkTypeName { get; set; }
+		public DateTime CreatedDate { get; set; }
+
 
 	}
 }

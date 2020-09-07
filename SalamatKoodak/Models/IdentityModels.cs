@@ -122,10 +122,11 @@ namespace SalamatKoodak.Models
                        p => p.Id, new RelationType { Id = 1, Name = "آموزش" },
                        new RelationType { Id = 2, Name = "هیعت" },
                        new RelationType { Id = 3, Name = "فعالیت های تفریحی و ورزشی" },
-                       new RelationType { Id = 4, Name = "فعالیت های جهادی " },
+                       new RelationType { Id = 4, Name = "فعالیت های فرهنگی و جهادی " },
                        new RelationType { Id = 5, Name = "فراخوان عمومی" },
                        new RelationType { Id = 6, Name = "شناسایی چهره به چهره" },
-                       new RelationType { Id = 7, Name = "عملیات" }
+                       new RelationType { Id = 7, Name = "عملیات" },
+                       new RelationType { Id = 8, Name = "دورهمی" }
                        );
                 }
                 if (!context.PersonelStatuses.Any())

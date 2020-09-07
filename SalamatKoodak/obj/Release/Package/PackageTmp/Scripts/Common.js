@@ -44,6 +44,9 @@ function PostAjax(ActionName, Parameters,redirecturl) {
         if (Parameters[i].special === 'combo') {
             fd.append(Parameters[i].id, $('#' + Parameters[i].htmlname + '').find('option:selected').val());
         }
+        else if (Parameters[i].special === 'radio') {
+            fd.append(Parameters[i].id, $('input[name="' + Parameters[i].htmlname + '"]:checked').val());
+        }
         else {
         fd.append(Parameters[i].id, $('#' + Parameters[i].htmlname + '').val());
         }
@@ -91,6 +94,7 @@ function FillComboBox(ActionName,Target) {
         dataType: "json",
         contentType: false,
         processData: false,
+
         success: function (response) {
             if (response.success) {                  
                 $.each(response.list, function () {
@@ -212,6 +216,12 @@ function PersonelEditAjax(ActionName, id) {
                 });
                 $("#PersonelStatusId option").each(function () {
                     if (this.value == response.statusid) {
+                        $(this).prop('selected', true);
+                    }
+                });
+                $("#NetWorkType option").each(function () {
+                    if (this.value == response.networktype) {
+                        
                         $(this).prop('selected', true);
                     }
                 });
