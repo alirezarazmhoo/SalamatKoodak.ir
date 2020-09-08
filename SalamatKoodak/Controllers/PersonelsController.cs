@@ -205,7 +205,10 @@ namespace SalamatKoodak.Controllers
                 }
             if (User.IsInRole("Admin"))
             {
-              var dataset =await db.Personels.Include(s => s.PersonelStatus).Include(s=>s.PersonelStatusId).Include(s => s.RelationType).Select(s=>new { s.Code,s.CityId   , s.Name , s.LastName , s.Mobile, s.IdTelegram , s.NationalCode , RelationType= s.RelationType.Name , PersonelStatus= s.PersonelStatus.Name , s.Id , s.RelationTypeId , s.PersonelStatusId,s.NetWorkTypeName}).OrderBy(s =>s.Id).ToListAsync();
+              var dataset =await db.Personels.Include(s => s.PersonelStatus).Include(s=>s.PersonelStatusId).Include(s => s.RelationType)
+                        .Select(s=>new { s.Code,s.CityId   , s.Name , s.LastName , s.Mobile, s.IdTelegram , s.CreatedDate,s.NationalCode 
+                  , RelationType= s.RelationType.Name , PersonelStatus= s.PersonelStatus.Name , s.Id , s.RelationTypeId
+                  , s.PersonelStatusId,s.NetWorkTypeName}).OrderByDescending(s =>s.CreatedDate).ToListAsync();
                     if(RelationTypeId !=null && PersonelStatusId != null)
                     {
                         dataset = dataset.Where(s => s.RelationTypeId == RelationTypeId && s.PersonelStatusId == PersonelStatusId).ToList();
@@ -231,13 +234,14 @@ namespace SalamatKoodak.Controllers
             else
             {
                 var dataset =await db.Personels.Include(s => s.PersonelStatus).
-                Include(s => s.RelationType).Select(s => new { s.Code, s.CityId,s.ApplicationUserId,s.Name, s.LastName, s.Mobile, s.IdTelegram, s.NetWorkTypeName,
+                Include(s => s.RelationType).Select(s => new { s.Code, s.CityId,s.ApplicationUserId,s.Name,
+                    s.CreatedDate,s.LastName, s.Mobile, s.IdTelegram, s.NetWorkTypeName,
                 s.NationalCode, RelationType = s.RelationType.Name, PersonelStatus = 
                 s.PersonelStatus.Name, s.Id,
                 s.RelationTypeId,
                 s.PersonelStatusId
                 }).Where(s => s.ApplicationUserId == user.Id && s.CityId == user.CityId)
-                .OrderBy(s => s.Id).ToListAsync();
+                .OrderByDescending(s => s.CreatedDate).ToListAsync();
 
                     if (RelationTypeId != null && PersonelStatusId != null)
                     {

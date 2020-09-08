@@ -150,8 +150,9 @@ namespace SalamatKoodak.Controllers
                             {
                                 item.CityId = model.CityId;
                             }
-                        }
                         currentUser.CityId = model.CityId;
+                            await db.SaveChangesAsync();
+                        }
                         await manager.UpdateAsync(currentUser);
                         var ctx = store.Context;
                         ctx.SaveChanges();
